@@ -80,17 +80,6 @@ body{background:var(--sky);color:var(--white);font-family:'Barlow Condensed',san
 @keyframes gspin{to{transform:rotate(360deg);}}
 @keyframes gspin2{from{transform:rotate(22deg)}to{transform:rotate(382deg);}}
 
-/* ── CURSOR ── */
-.cursor{
-  position:fixed;pointer-events:none;z-index:9999;
-  width:12px;height:12px;
-  background:var(--white);
-  transform:translate(-50%,-50%);
-  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
-  transition:width .15s,height .15s;
-  box-shadow:0 0 10px rgba(255,255,255,0.5);
-}
-.cursor.big{width:20px;height:20px;}
 
 /* ── NAV ── */
 nav{
@@ -609,6 +598,27 @@ footer{
 
 <div class="divider"></div>
 
+
+<!-- ── BLOG ── -->
+  
+<section id="blog">
+  <p class="sec-label reveal">Blog</p>
+  <h2 class="sec-title reveal">Latest <em>Writing</em></h2>
+  <div class="sec-rule "></div>
+  <p class="blog-intro reveal">Thoughts on pitching development, human performance, and the science of sport.</p>
+  <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="blog-substack-link reveal">Read all posts on Substack</a>
+ 
+  <div id="blog-grid" class="blog-grid">
+    <p class="blog-status" id="blog-status">Loading posts...</p>
+  </div>
+ 
+  <div class="blog-cta reveal">
+    <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="btn btn-secondary" style="text-decoration:none;">View All Posts &#8594;</a>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+  
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="contact-grid">
@@ -653,6 +663,49 @@ document.querySelectorAll('a,button,.cap-card,.clink,.hstat').forEach(el=>{
 });
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Substack RSS feed
+(async function loadBlog(){
+  const status = document.getElementById('blog-status');
+  const grid   = document.getElementById('blog-grid');
+  // chamellkelleher is the profile slug — derive feed URL
+  const feedUrl = 'https://chamellkelleher.substack.com/feed';
+  const proxy   = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&api_key=&count=6`;
+  try{
+    const res  = await fetch(proxy);
+    const data = await res.json();
+    if(!data.items || data.items.length===0){
+      status.textContent = 'No posts yet — check back soon.';
+      return;
+    }
+    status.remove();
+    data.items.forEach(post=>{
+      const date = new Date(post.pubDate).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+      // strip html from description
+      const tmp = document.createElement('div');
+      tmp.innerHTML = post.description || '';
+      const excerpt = (tmp.textContent || '').slice(0,140).trim() + '…';
+      const card = document.createElement('a');
+      card.className = 'blog-card reveal';
+      card.href = post.link;
+      card.target = '_blank';
+      card.rel = 'noopener';
+      card.innerHTML = `
+        <p class="blog-date">${date}</p>
+        <h3 class="blog-title">${post.title}</h3>
+        <p class="blog-excerpt">${excerpt}</p>
+        <span class="blog-read">Read Post</span>
+      `;
+      grid.appendChild(card);
+      obs.observe(card);
+      card.addEventListener('mouseenter',()=>cur.classList.add('big'));
+      card.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+    });
+  }catch(e){
+    status.textContent = 'Posts unavailable — visit Substack directly.';
+  }
+})();
+  
 </script>
 </body>
 </html>
