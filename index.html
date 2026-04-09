@@ -16,6 +16,7 @@
   --silver:   #d0dce8;
   --steel:    #8aa4bc;
   --white:    #f0f6ff;
+  --orange:   #f07124;
   --dim:      rgba(208,220,232,0.55);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -287,7 +288,7 @@ section:nth-of-type(even){background:linear-gradient(160deg,#091422 0%,#0b1828 1
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:start;max-width:1080px;}
 .about-copy p{
   font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:400;
-  line-height:1.9;color:var(--dim);margin-bottom:1.3rem;
+  line-height:1.9;color:var(--white);margin-bottom:1.3rem;
 }
 .about-copy p strong{color:var(--white);font-weight:800;}
 
@@ -358,7 +359,7 @@ section:nth-of-type(even){background:linear-gradient(160deg,#091422 0%,#0b1828 1
 }
 .cap-body{
   font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:400;
-  line-height:1.85;color:var(--dim);margin-bottom:1.3rem;
+  line-height:1.85;color:var(--white);margin-bottom:1.3rem;
 }
 .cap-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
 .cap-tag{
@@ -392,10 +393,10 @@ section:nth-of-type(even){background:linear-gradient(160deg,#091422 0%,#0b1828 1
 .blog-substack-link{
   display:inline-flex;align-items:center;gap:.6rem;
   font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.2em;
-  color:var(--steel);text-decoration:none;text-transform:uppercase;
+  color:var(--white);text-decoration:none;text-transform:uppercase;
   margin-bottom:3.5rem;transition:color .2s;
 }
-.blog-substack-link:hover{color:var(--white);}
+.blog-substack-link:hover{color:var(--orange);}
 .blog-substack-link::before{content:'↗';}
 .blog-status{
   font-family:'Share Tech Mono',monospace;font-size:.8rem;letter-spacing:.2em;
@@ -446,7 +447,7 @@ section:nth-of-type(even){background:linear-gradient(160deg,#091422 0%,#0b1828 1
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1080px;align-items:start;}
 .contact-copy{
   font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;
-  line-height:1.9;color:var(--dim);margin-bottom:2rem;
+  line-height:1.9;color:var(--white);margin-bottom:2rem;
 }
 .clinks{display:flex;flex-direction:column;gap:.4rem;}
 .clink{
