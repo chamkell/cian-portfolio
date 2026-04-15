@@ -723,7 +723,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 (async function loadBlog(){
   const status=document.getElementById('blog-status');
   const grid=document.getElementById('blog-grid');
-  const feedUrl='https://chamellkelleher.substack.com';
+  const feedUrl='https://chamellkelleher.substack.com/feed';
   const proxy=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=6`;
   try{
     const res=await fetch(proxy);
