@@ -4,790 +4,651 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Cian Hamell-Kelleher | Pitching Dev &amp; Player Performance</title>
-<!-- Google Fonts for Retro VHS / Terminal / Vintage Typography -->
+
+<!-- Retro-Modern Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Chakra+Petch:wght@500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 
 <style>
 :root {
-  --vhs-bg:       #0b0d12;
-  --vhs-card:     #131722;
-  --vhs-card-2:   #1a202c;
-  --vhs-amber:    #ffb703;
-  --vhs-orange:   #fb8500;
-  --vhs-red:      #e63946;
-  --vhs-cyan:     #00f5d4;
-  --vhs-cream:    #f4f1de;
-  --vhs-steel:    #94a3b8;
-  --vhs-dim:      rgba(148, 163, 184, 0.65);
+  --bg:          #111318;
+  --surface:     #171a22;
+  --surface-2:   #202430;
+  --border:      #2b3040;
   
-  /* Vintage Tape Rainbow Stripes */
-  --s-red:    #ff2a5f;
-  --s-orange: #ff7e1d;
-  --s-yellow: #ffd000;
-  --s-green:  #00e676;
-  --s-cyan:   #00b4d8;
+  --amber:       #e5a855;
+  --orange:      #db6b39;
+  --red:         #cc4444;
+  --teal:        #4ca6a0;
+  
+  --cream:       #eee9df;
+  --cream-dim:   #a8adba;
+  
+  /* Muted Analog Rainbow Accent Line */
+  --stripe-gradient: linear-gradient(90deg, #cc4444 0%, #db6b39 25%, #e5a855 50%, #4ca6a0 75%, #3b82f6 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--vhs-bg);
-  color: var(--vhs-cream);
+  background-color: var(--bg);
+  color: var(--cream);
   font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* ── CRT / VHS SCANLINES EFFECT ── */
-.vhs-scanlines {
-  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
-              linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  background-size: 100% 3px, 6px 100%;
-  opacity: 0.7;
-}
-
-/* Tape Grain Noise */
-.vhs-grain {
-  position: fixed; inset: 0; z-index: 9997; pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* ── RETRO TAPE COLOR ACCENT STRIPE ── */
-.tape-stripe-bar {
-  height: 5px;
+/* Subtle Stripe Border */
+.stripe-bar {
+  height: 3px;
   width: 100%;
-  background: linear-gradient(90deg, 
-    var(--s-red) 0%, var(--s-red) 20%, 
-    var(--s-orange) 20%, var(--s-orange) 40%, 
-    var(--s-yellow) 40%, var(--s-yellow) 60%, 
-    var(--s-green) 60%, var(--s-green) 80%, 
-    var(--s-cyan) 80%, var(--s-cyan) 100%);
+  background: var(--stripe-gradient);
 }
 
-/* ── CURSOR ── */
-.cursor {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 16px; height: 16px;
-  border: 2px solid var(--vhs-amber);
-  background: rgba(255, 183, 3, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.15s, height 0.15s, background-color 0.15s;
-}
-.cursor::after {
-  content: ''; position: absolute; top: 50%; left: 50%;
-  width: 4px; height: 4px; background: var(--vhs-red);
-  transform: translate(-50%, -50%);
-}
-.cursor.big {
-  width: 32px; height: 32px;
-  background: rgba(230, 57, 70, 0.25);
-  border-color: var(--vhs-red);
+/* Container */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-/* ── NAV BAR ── */
+/* NAV BAR */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(11, 13, 18, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 2px solid var(--vhs-card-2);
+  background: rgba(17, 19, 24, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
 }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0.8rem 2.5rem;
-  max-width: 1280px; margin: 0 auto;
+  height: 70px;
 }
 .nav-logo {
-  font-family: 'VT323', monospace; font-size: 1.6rem;
-  color: var(--vhs-amber); text-decoration: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  display: flex; align-items: center; gap: 0.6rem;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem;
+  color: var(--cream); text-decoration: none; text-transform: uppercase;
+  letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.6rem;
 }
-.nav-logo .rec-dot {
-  width: 10px; height: 10px; background: var(--vhs-red); border-radius: 50%;
-  animation: blink 1.2s infinite;
+.nav-logo-badge {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
+  background: rgba(229, 168, 85, 0.15); color: var(--amber);
+  border: 1px solid rgba(229, 168, 85, 0.3); padding: 0.1rem 0.4rem;
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-
 .nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.9rem;
-  color: var(--vhs-steel); text-decoration: none;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  transition: color 0.2s, text-shadow 0.2s;
+  font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
+  color: var(--cream-dim); text-decoration: none; text-transform: uppercase;
+  letter-spacing: 0.1em; transition: color 0.2s;
 }
-.nav-links a:hover {
-  color: var(--vhs-amber);
-  text-shadow: 0 0 8px rgba(255, 183, 3, 0.5);
-}
+.nav-links a:hover { color: var(--amber); }
 
-/* VCR Status Bar Top Header */
-.vcr-status-bar {
-  background: #000; color: #00ff66;
-  font-family: 'VT323', monospace; font-size: 1.05rem;
-  padding: 0.2rem 2.5rem; display: flex; justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 255, 102, 0.2);
-  letter-spacing: 0.15em;
-}
-
-/* ── HERO SECTION ── */
+/* ── HERO ── */
 #home {
-  min-height: 100vh; padding: 8rem 2.5rem 4rem;
+  padding: 10rem 0 5rem;
+  min-height: 90vh;
   display: flex; flex-direction: column; justify-content: center;
-  position: relative; overflow: hidden;
-  background: 
-    radial-gradient(circle at 80% 20%, rgba(255, 183, 3, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 20% 80%, rgba(230, 57, 70, 0.05) 0%, transparent 40%);
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(229, 168, 85, 0.04) 0%, transparent 50%);
 }
 
-.hero-vhs-badge {
-  display: inline-flex; align-items: center; gap: 0.75rem;
-  background: var(--vhs-card-2); border: 1px solid rgba(255,183,3,0.3);
-  padding: 0.35rem 0.9rem; border-radius: 2px;
-  font-family: 'VT323', monospace; font-size: 1.1rem; color: var(--vhs-amber);
-  margin-bottom: 1.5rem; width: fit-content;
+.hero-meta {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
+  color: var(--amber); text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
 }
-.hero-vhs-badge span.tag {
-  background: var(--vhs-red); color: #fff; padding: 0 0.4rem; font-size: 0.9rem;
+.hero-meta::before {
+  content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%;
 }
 
-.hero-title-group { margin-bottom: 1.5rem; }
-.hero-name {
-  font-family: 'Chakra Petch', sans-serif; font-weight: 700;
-  font-size: clamp(2rem, 5vw, 3.8rem); text-transform: uppercase;
-  color: var(--vhs-cream); line-height: 1.05; letter-spacing: 0.02em;
-  text-shadow: 2px 2px 0px rgba(230, 57, 70, 0.6), -1px -1px 0px rgba(0, 245, 212, 0.4);
+.hero-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 4.2rem); color: var(--cream);
+  line-height: 1.05; text-transform: uppercase; letter-spacing: -0.01em;
+  margin-bottom: 1.2rem;
 }
 .hero-subtitle {
-  font-family: 'Share Tech Mono', monospace; font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-  color: var(--vhs-amber); text-transform: uppercase; margin-top: 0.5rem;
-  letter-spacing: 0.08em;
+  font-family: 'Share Tech Mono', monospace; font-size: clamp(1rem, 2vw, 1.35rem);
+  color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 1.8rem;
 }
 
 .hero-desc {
-  font-size: 1.15rem; color: var(--vhs-steel); max-width: 680px;
-  margin-bottom: 2.5rem; border-left: 3px solid var(--vhs-amber);
-  padding-left: 1.2rem; line-height: 1.7;
+  font-size: 1.15rem; color: var(--cream-dim); max-width: 680px;
+  margin-bottom: 2.5rem; border-left: 2px solid var(--amber);
+  padding-left: 1.2rem; line-height: 1.8;
 }
 
-.hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
 
-.vhs-btn {
-  font-family: 'VT323', monospace; font-size: 1.25rem; letter-spacing: 0.12em;
-  text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.8rem;
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  border: 2px solid var(--vhs-amber); cursor: none; transition: all 0.2s;
+.btn {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.9rem;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  padding: 0.85rem 1.8rem; display: inline-flex; align-items: center; gap: 0.6rem;
+  transition: all 0.2s ease; border: 1px solid transparent; cursor: pointer;
 }
-.vhs-btn-primary {
-  background: var(--vhs-amber); color: #000; font-weight: bold;
-  box-shadow: 4px 4px 0px var(--vhs-red);
+.btn-primary {
+  background: var(--amber); color: #111; font-weight: 600;
 }
-.vhs-btn-primary:hover {
-  transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--vhs-red);
-  background: var(--vhs-orange);
-}
-.vhs-btn-secondary {
-  background: transparent; color: var(--vhs-cream); border-color: var(--vhs-steel);
-  box-shadow: 4px 4px 0px var(--vhs-card-2);
-}
-.vhs-btn-secondary:hover {
-  border-color: var(--vhs-cream); color: var(--vhs-amber);
-  transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--vhs-card-2);
-}
+.btn-primary:hover { background: #f0b260; transform: translateY(-2px); }
 
-/* Sports / Retro Stats Bar */
-.retro-stats-grid {
+.btn-secondary {
+  background: var(--surface); color: var(--cream); border-color: var(--border);
+}
+.btn-secondary:hover { border-color: var(--cream-dim); color: var(--amber); transform: translateY(-2px); }
+
+/* Retro Athletic Highlights Bar */
+.stats-bar {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem; max-width: 900px; margin-top: 1rem;
+  gap: 1.2rem; background: var(--surface); border: 1px solid var(--border);
+  padding: 1.5rem; border-top: 2px solid var(--amber);
 }
-.stat-card {
-  background: var(--vhs-card); border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1rem; position: relative;
-  border-top: 3px solid var(--vhs-amber);
-}
-.stat-card::before {
-  content: 'STAT TAPE'; position: absolute; top: 0.3rem; right: 0.5rem;
-  font-family: 'VT323', monospace; font-size: 0.75rem; color: var(--vhs-steel); opacity: 0.5;
-}
-.stat-val {
-  font-family: 'VT323', monospace; font-size: 2.2rem; color: var(--vhs-amber);
-  line-height: 1; display: block;
-}
-.stat-label {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.8rem;
-  color: var(--vhs-steel); text-transform: uppercase; margin-top: 0.3rem; display: block;
-}
+.stat-item { display: flex; flex-direction: column; }
+.stat-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--cream); line-height: 1.1; }
+.stat-lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 0.3rem; letter-spacing: 0.05em; }
 
-/* ── SECTIONS BASE ── */
-section { padding: 6rem 2.5rem; position: relative; }
-section:nth-of-type(even) { background: rgba(19, 23, 34, 0.4); }
+/* ── SECTIONS ── */
+section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
 
 .sec-header { margin-bottom: 3rem; }
 .sec-tag {
-  font-family: 'VT323', monospace; font-size: 1.2rem; color: var(--vhs-amber);
-  text-transform: uppercase; letter-spacing: 0.15em; display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber);
+  text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.4rem; display: block;
 }
-.sec-tag::before { content: '►'; font-size: 0.9rem; color: var(--vhs-red); }
 .sec-title {
-  font-family: 'Chakra Petch', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  color: var(--vhs-cream); text-transform: uppercase; margin-top: 0.2rem;
+  font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800; color: var(--cream); text-transform: uppercase;
 }
-.sec-title em { color: var(--vhs-amber); font-style: normal; }
+.sec-title em { color: var(--amber); font-style: normal; }
 
 /* ── ABOUT SECTION ── */
-.about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: start; max-width: 1100px; }
-.about-text p { font-size: 1.1rem; color: var(--vhs-steel); margin-bottom: 1.4rem; line-height: 1.8; }
-.about-text p strong { color: var(--vhs-cream); }
+.about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: start; }
+.about-text p { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 1.4rem; line-height: 1.8; }
+.about-text p strong { color: var(--cream); font-weight: 600; }
 
-/* Retro Baseball Trading Card Layout */
-.trading-card {
-  background: var(--vhs-card);
-  border: 2px solid var(--vhs-amber);
-  padding: 1.5rem; position: relative;
-  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
+.profile-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1.8rem; position: relative;
 }
-.trading-card-header {
-  border-bottom: 2px dashed var(--vhs-steel); padding-bottom: 0.8rem; margin-bottom: 1rem;
+.profile-card-header {
+  border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.2rem;
   display: flex; justify-content: space-between; align-items: center;
 }
-.trading-card-title { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--vhs-amber); text-transform: uppercase; }
-.trading-card-no { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--vhs-red); }
+.profile-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--cream); text-transform: uppercase; }
+.profile-card-no { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--red); }
 
-.info-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.info-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
 .info-item { display: flex; gap: 1rem; align-items: flex-start; }
-.info-icon { font-size: 1.2rem; width: 24px; text-align: center; }
-.info-lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--vhs-steel); text-transform: uppercase; }
-.info-val { font-size: 1rem; color: var(--vhs-cream); font-weight: 600; }
+.info-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+.info-lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cream-dim); text-transform: uppercase; }
+.info-val { font-size: 1rem; color: var(--cream); font-weight: 500; }
 
 /* ── CAPSTONE / THROW APP ── */
-.cap-intro { font-size: 1.15rem; color: var(--vhs-steel); max-width: 700px; margin-bottom: 3rem; line-height: 1.8; }
+.cap-intro { font-size: 1.15rem; color: var(--cream-dim); max-width: 720px; margin-bottom: 3rem; line-height: 1.8; }
 
-.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; max-width: 1100px; }
+.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
 
-.cap-vhs-box {
-  background: var(--vhs-card); border: 1px solid rgba(255,255,255,0.1);
-  padding: 1.8rem; position: relative; transition: transform 0.25s, box-shadow 0.25s;
-  border-left: 4px solid var(--vhs-amber);
+.cap-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1.8rem; transition: transform 0.2s, border-color 0.2s;
+  position: relative;
 }
-.cap-vhs-box:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,183,3,0.15);
-}
-.cap-vhs-box.full-width { grid-column: 1 / -1; border-left-color: var(--vhs-red); }
+.cap-card:hover { transform: translateY(-3px); border-color: rgba(229, 168, 85, 0.4); }
+.cap-card.full { grid-column: 1 / -1; border-top: 3px solid var(--amber); }
 
-.cap-num { font-family: 'VT323', monospace; font-size: 1.2rem; color: var(--vhs-red); margin-bottom: 0.4rem; }
-.cap-box-title { font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--vhs-cream); text-transform: uppercase; margin-bottom: 0.8rem; }
-.cap-box-body { font-size: 1rem; color: var(--vhs-steel); margin-bottom: 1.2rem; line-height: 1.7; }
+.cap-num { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.5rem; }
+.cap-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-transform: uppercase; margin-bottom: 0.8rem; }
+.cap-body { font-size: 1rem; color: var(--cream-dim); margin-bottom: 1.2rem; line-height: 1.7; }
 .cap-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .cap-tag {
   font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
-  padding: 0.2rem 0.6rem; background: rgba(255,183,3,0.1);
-  border: 1px solid rgba(255,183,3,0.3); color: var(--vhs-amber);
+  padding: 0.25rem 0.6rem; background: var(--surface-2);
+  border: 1px solid var(--border); color: var(--cream-dim);
 }
 
-/* ── NEW SECTION: MEDIA SHELF (BOOKS & MOVIES) ── */
-.media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; }
+/* ── MEDIA SHELF (BOOKS & MOVIES) ── */
+.media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
 
-/* Book Section - Library Checkout Card Style */
-.book-card {
-  background: #fdf6e3; color: #2b2b2b; padding: 2rem;
-  border: 2px solid #d3c6aa; position: relative;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
+.media-box {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 2rem; position: relative;
 }
-.book-card-stamp {
-  position: absolute; top: 1rem; right: 1rem;
-  border: 2px red solid; color: red; font-family: 'VT323', monospace;
-  padding: 0.2rem 0.6rem; transform: rotate(-8deg); font-size: 1.1rem; opacity: 0.85;
+.media-box-title {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.25rem;
+  color: var(--cream); text-transform: uppercase; margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;
 }
-.book-card-title { font-family: 'VT323', monospace; font-size: 1.6rem; color: #111; text-transform: uppercase; border-bottom: 2px dashed #bbb; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-.book-item { background: #fff; border: 1px solid #e0d8c3; padding: 1rem; margin-bottom: 1rem; }
-.book-name { font-family: 'Chakra Petch', sans-serif; font-weight: bold; font-size: 1.1rem; color: #1a202c; }
-.book-author { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
-.book-notes { font-size: 0.95rem; color: #444; font-style: italic; line-height: 1.5; }
+.media-box-title span.badge {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
+  color: var(--amber); background: rgba(229, 168, 85, 0.1);
+  padding: 0.2rem 0.6rem; border: 1px solid rgba(229, 168, 85, 0.2);
+}
 
-/* Movies Section - VHS Cassette Tape Case Rack */
-.vhs-rack { display: flex; flex-direction: column; gap: 1.2rem; }
-.vhs-case {
-  background: var(--vhs-card); border: 2px solid var(--vhs-card-2);
-  display: flex; align-items: center; overflow: hidden;
-  position: relative; box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
-  transition: transform 0.2s, border-color 0.2s;
-}
-.vhs-case:hover { transform: translateX(6px); border-color: var(--vhs-amber); }
-.vhs-spine {
-  background: var(--vhs-red); color: #fff;
-  font-family: 'VT323', monospace; font-size: 1.2rem;
-  padding: 1.2rem 0.8rem; writing-mode: vertical-rl; transform: rotate(180deg);
-  text-align: center; letter-spacing: 0.1em;
-}
-.vhs-case:nth-child(2) .vhs-spine { background: var(--vhs-orange); }
-.vhs-case:nth-child(3) .vhs-spine { background: var(--vhs-cyan); color: #000; }
+.book-entry { margin-bottom: 1.5rem; }
+.book-entry:last-child { margin-bottom: 0; }
+.book-title { font-weight: 600; font-size: 1.05rem; color: var(--cream); }
+.book-author { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.4rem; }
+.book-desc { font-size: 0.95rem; color: var(--cream-dim); line-height: 1.5; }
 
-.vhs-details { padding: 1.2rem 1.5rem; flex-grow: 1; }
-.vhs-movie-title { font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem; color: var(--vhs-cream); text-transform: uppercase; }
-.vhs-movie-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--vhs-steel); margin-top: 0.2rem; }
-.vhs-badge-rating { display: inline-block; margin-top: 0.5rem; font-family: 'VT323', monospace; font-size: 1rem; color: var(--vhs-amber); background: rgba(0,0,0,0.4); padding: 0.1rem 0.5rem; border: 1px solid rgba(255,183,3,0.3); }
+.movie-list { display: flex; flex-direction: column; gap: 1rem; }
+.movie-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center;
+  transition: border-color 0.2s;
+}
+.movie-card:hover { border-color: var(--amber); }
+.movie-name { font-weight: 600; font-size: 1rem; color: var(--cream); }
+.movie-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--cream-dim); margin-top: 0.2rem; }
+.movie-tag {
+  font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
+  color: var(--teal); background: rgba(76, 166, 160, 0.1);
+  padding: 0.2rem 0.5rem; border: 1px solid rgba(76, 166, 160, 0.2);
+}
 
 /* ── BLOG SECTION ── */
-.blog-intro { font-size: 1.1rem; color: var(--vhs-steel); margin-bottom: 0.8rem; }
-.substack-btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+.blog-intro { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 0.6rem; }
+.substack-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
   font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-  color: var(--vhs-amber); text-decoration: none; text-transform: uppercase;
+  color: var(--amber); text-decoration: none; text-transform: uppercase;
   margin-bottom: 2.5rem; transition: color 0.2s;
 }
-.substack-btn:hover { color: var(--vhs-orange); }
+.substack-link:hover { color: var(--orange); }
 
-.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
 .blog-card {
-  background: var(--vhs-card); border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.5rem; text-decoration: none; display: block;
-  position: relative; transition: transform 0.2s, border-color 0.2s;
-  border-top: 3px solid var(--vhs-cyan);
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1.8rem; text-decoration: none; display: block;
+  transition: transform 0.2s, border-color 0.2s;
 }
-.blog-card:hover { transform: translateY(-4px); border-color: var(--vhs-cyan); }
-.blog-date { font-family: 'VT323', monospace; font-size: 1.1rem; color: var(--vhs-cyan); margin-bottom: 0.4rem; }
-.blog-title { font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem; color: var(--vhs-cream); margin-bottom: 0.6rem; line-height: 1.4; }
-.blog-excerpt { font-size: 0.95rem; color: var(--vhs-steel); margin-bottom: 1rem; line-height: 1.6; }
-.blog-read { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--vhs-amber); text-transform: uppercase; }
+.blog-card:hover { transform: translateY(-3px); border-color: var(--amber); }
+.blog-date { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.6rem; }
+.blog-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.8rem; line-height: 1.4; }
+.blog-excerpt { font-size: 0.95rem; color: var(--cream-dim); margin-bottom: 1.2rem; line-height: 1.6; }
+.blog-read { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--cream); text-transform: uppercase; }
 
 /* ── CONTACT ── */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1100px; }
-.contact-copy { font-size: 1.1rem; color: var(--vhs-steel); margin-bottom: 2rem; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.contact-copy { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 2rem; }
 
 .clinks { display: flex; flex-direction: column; gap: 0.8rem; }
 .clink {
   display: flex; align-items: center; gap: 1rem;
-  color: var(--vhs-cream); text-decoration: none;
+  color: var(--cream); text-decoration: none;
   font-family: 'Share Tech Mono', monospace; font-size: 0.95rem;
-  padding: 0.8rem 1.2rem; background: var(--vhs-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 3px solid var(--vhs-amber); transition: all 0.2s;
+  padding: 0.9rem 1.2rem; background: var(--surface);
+  border: 1px solid var(--border); transition: all 0.2s;
 }
-.clink:hover { background: var(--vhs-card-2); border-left-color: var(--vhs-red); transform: translateX(4px); }
+.clink:hover { border-color: var(--amber); background: var(--surface-2); transform: translateX(4px); }
 
-.vhs-form { display: flex; flex-direction: column; gap: 1.2rem; }
-.flabel { font-family: 'VT323', monospace; font-size: 1.1rem; color: var(--vhs-amber); display: block; margin-bottom: 0.2rem; }
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.flabel { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); display: block; margin-bottom: 0.3rem; text-transform: uppercase; }
 .finput, .fta {
-  width: 100%; background: var(--vhs-card); border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--vhs-cream); font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
-  padding: 0.8rem; outline: none; transition: border-color 0.2s;
+  width: 100%; background: var(--surface); border: 1px solid var(--border);
+  color: var(--cream); font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
+  padding: 0.85rem; outline: none; transition: border-color 0.2s;
 }
-.finput:focus, .fta:focus { border-color: var(--vhs-amber); background: #181d2a; }
+.finput:focus, .fta:focus { border-color: var(--amber); background: var(--surface-2); }
 
 /* ── FOOTER ── */
-footer {
-  background: #06070a; border-top: 2px solid var(--vhs-card-2);
-  padding: 2.5rem; margin-top: 4rem;
-}
-.foot-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
-}
-.foot-name { font-family: 'VT323', monospace; font-size: 1.5rem; color: var(--vhs-amber); }
-.foot-mid { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--vhs-steel); text-transform: uppercase; }
-.foot-r { font-family: 'VT323', monospace; font-size: 1.1rem; color: var(--vhs-red); }
+footer { padding: 3rem 0; background: #0c0e12; }
+.foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+.foot-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--cream); }
+.foot-mid { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--cream-dim); text-transform: uppercase; }
+.foot-r { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--amber); }
 
 @media(max-width: 900px) {
-  nav { padding: 0; }
-  .nav-inner { padding: 0.8rem 1.2rem; }
   .nav-links { gap: 1rem; }
-  .vcr-status-bar { display: none; }
-  section { padding: 4rem 1.2rem; }
-  #home { padding: 6rem 1.2rem 3rem; }
+  section { padding: 4rem 0; }
+  #home { padding: 8rem 0 4rem; }
   .about-grid, .contact-grid, .media-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- CRT SCANLINES & NOISE OVERLAY -->
-<div class="vhs-scanlines"></div>
-<div class="vhs-grain"></div>
-
-<!-- MOUSE CURSOR -->
-<div class="cursor" id="cursor"></div>
-
-<!-- VCR TOP STATUS BAR -->
-<div class="vcr-status-bar">
-  <span>PLAY ▶  [HI-FI STEREO]</span>
-  <span>AUTO-TRACKING</span>
-  <span>SPEED: 88 MPH</span>
-  <span>SP 0:02:19</span>
-</div>
+<div class="stripe-bar"></div>
 
 <!-- NAV BAR -->
 <nav>
-  <div class="tape-stripe-bar"></div>
-  <div class="nav-inner">
-    <a href="#home" class="nav-logo">
-      <span class="rec-dot"></span> Cian Hamell-Kelleher
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">THROW App</a></li>
-      <li><a href="#media">Shelf</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">
+        Cian Hamell-Kelleher <span class="nav-logo-badge">DEV / ARCHIVE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">THROW App</a></li>
+        <li><a href="#shelf">Shelf</a></li>
+        <li><a href="#blog">Writing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
 <!-- ── HERO ── -->
 <section id="home">
-  <div class="hero-vhs-badge">
-    <span class="tag">REC ●</span> HI-FI AUDIO / NTSC FORMAT
-  </div>
-
-  <div class="hero-title-group">
-    <h1 class="hero-name">Process-Driven<br>Player Development</h1>
+  <div class="container">
+    <span class="hero-meta">Player Performance &amp; Analytics Log</span>
+    
+    <h1 class="hero-title">Process-Driven<br>Player Development</h1>
     <p class="hero-subtitle">A holistic approach to building robust pitchers</p>
-  </div>
 
-  <p class="hero-desc">
-    Interested in throwing implements cooler. Also a fan of history, film, music, and learning. Here to share my thoughts and findings on most things and get you, yes YOU, better at throwing a 5oz white ball with red laces.
-  </p>
+    <p class="hero-desc">
+      Interested in throwing implements cooler. Also a fan of history, film, music, and learning. Here to share my thoughts and findings on most things and get you, yes YOU, better at throwing a 5oz white ball with red laces.
+    </p>
 
-  <div class="hero-btns">
-    <a href="#projects" class="vhs-btn vhs-btn-primary">► View Capstone Project</a>
-    <a href="#contact" class="vhs-btn vhs-btn-secondary">✉ Reach Out</a>
-  </div>
-
-  <!-- RETRO BASEBALL / PLAYER PERFORMANCE STATS -->
-  <div class="retro-stats-grid">
-    <div class="stat-card">
-      <span class="stat-val">91.0 MPH</span>
-      <span class="stat-label">Peak Velocity Reached</span>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Capstone Project →</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
     </div>
-    <div class="stat-card">
-      <span class="stat-val">9-WEEK</span>
-      <span class="stat-label">Velocity Program Cycle</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-val">HS / COL</span>
-      <span class="stat-label">Coaching Level Experience</span>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-val">91.0 MPH</span>
+        <span class="stat-lbl">Peak Reached</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">9-WEEK</span>
+        <span class="stat-lbl">VBT Protocol Cycle</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">HS / COL</span>
+        <span class="stat-lbl">Coaching Experience</span>
+      </div>
     </div>
   </div>
 </section>
-
-<div class="tape-stripe-bar"></div>
 
 <!-- ── ABOUT SECTION ── -->
 <section id="about">
-  <div class="sec-header">
-    <span class="sec-tag">SEEK FRAME 01 / BIOGRAPHY</span>
-    <h2 class="sec-title">About <em>Me</em></h2>
-  </div>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <p>
-        I'm working to build a healthier and more educated general population in the baseball world to push player development forward.
-      </p>
-      <p>
-        My goal is to help build <strong>robust pitchers through process and data-driven development</strong>, with player health and performance at the forefront. I have experience working with pitchers at the High School and Collegiate levels.
-      </p>
-      <p>
-        I am currently working as an independent remote <strong>Player Performance Coach</strong>. Contact me for inquiries.
-      </p>
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">01 / Background</span>
+      <h2 class="sec-title">About <em>Me</em></h2>
     </div>
 
-    <!-- RETRO TRADING CARD STYLE QUICK INFO -->
-    <div class="trading-card">
-      <div class="trading-card-header">
-        <span class="trading-card-title">Coach Profile</span>
-        <span class="trading-card-no">NO. 2026</span>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm working to build a healthier and more educated general population in the baseball world to push player development forward.
+        </p>
+        <p>
+          My goal is to help build <strong>robust pitchers through process and data-driven development</strong>, with player health and performance at the forefront. I have experience working with pitchers at the High School and Collegiate levels.
+        </p>
+        <p>
+          I am currently working as an independent remote <strong>Player Performance Coach</strong>. Contact me for inquiries.
+        </p>
       </div>
-      <ul class="info-list">
-        <li class="info-item">
-          <span class="info-icon">🎓</span>
-          <div>
-            <p class="info-lbl">Academics</p>
-            <p class="info-val">B.A. Communication @ Stonehill College</p>
-          </div>
-        </li>
-        <li class="info-item">
-          <span class="info-icon">⚾</span>
-          <div>
-            <p class="info-lbl">Focus Area</p>
-            <p class="info-val">Pitching Development &amp; Human Performance</p>
-          </div>
-        </li>
-        <li class="info-item">
-          <span class="info-icon">📍</span>
-          <div>
-            <p class="info-lbl">Location</p>
-            <p class="info-val">Attleboro, MA</p>
-          </div>
-        </li>
-        <li class="info-item">
-          <span class="info-icon">📅</span>
-          <div>
-            <p class="info-lbl">Season / Year</p>
-            <p class="info-val">2026</p>
-          </div>
-        </li>
-      </ul>
+
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <span class="profile-card-title">Quick Info</span>
+          <span class="profile-card-no">REF-2026</span>
+        </div>
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="info-icon">🎓</span>
+            <div>
+              <p class="info-lbl">Academics</p>
+              <p class="info-val">B.A. Communication @ Stonehill College</p>
+            </div>
+          </li>
+          <li class="info-item">
+            <span class="info-icon">⚾</span>
+            <div>
+              <p class="info-lbl">Focus Area</p>
+              <p class="info-val">Pitching Development &amp; Human Performance</p>
+            </div>
+          </li>
+          <li class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+              <p class="info-lbl">Location</p>
+              <p class="info-val">Attleboro, MA</p>
+            </div>
+          </li>
+          <li class="info-item">
+            <span class="info-icon">📅</span>
+            <div>
+              <p class="info-lbl">Year</p>
+              <p class="info-val">2026</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
-
-<div class="tape-stripe-bar"></div>
 
 <!-- ── CAPSTONE / PROJECTS ── -->
 <section id="projects">
-  <div class="sec-header">
-    <span class="sec-tag">RESEARCH TAPE / SENIOR CAPSTONE</span>
-    <h2 class="sec-title">The <em>THROW App</em></h2>
-  </div>
-
-  <p class="cap-intro">
-    Injury rates for baseball pitchers are at an all time high. High schoolers getting Tommy John surgery has become a regularity in the sport, so what's going to change to curb this trend? Contact me to get started on the THROW App today!
-  </p>
-
-  <div class="cap-grid">
-    <!-- Card 1 -->
-    <div class="cap-vhs-box full-width">
-      <p class="cap-num">TRACK 01 / OVERVIEW</p>
-      <h3 class="cap-box-title">The THROW App Overview</h3>
-      <p class="cap-box-body">The THROW App is a Baseball Player Development app that uses velocity-based programming to ensure a healthy workload for pitchers.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Velocity-Based Programs</span>
-        <span class="cap-tag">Individualized Player Plans</span>
-        <span class="cap-tag">Education on Player Health</span>
-      </div>
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">02 / Senior Capstone</span>
+      <h2 class="sec-title">The <em>THROW App</em></h2>
     </div>
 
-    <!-- Card 2 -->
-    <div class="cap-vhs-box">
-      <p class="cap-num">TRACK 02 / LITERATURE</p>
-      <h3 class="cap-box-title">Research &amp; Background</h3>
-      <p class="cap-box-body">The literature is out there to lay the groundwork for velocity-based throwing programs leading the way in health and player development.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Load Management</span>
-        <span class="cap-tag">Injury Prevention</span>
-      </div>
-    </div>
+    <p class="cap-intro">
+      Injury rates for baseball pitchers are at an all time high. High schoolers getting Tommy John surgery has become a regularity in the sport, so what's going to change to curb this trend? Contact me to get started on the THROW App today!
+    </p>
 
-    <!-- Card 3 -->
-    <div class="cap-vhs-box">
-      <p class="cap-num">TRACK 03 / PROTOCOL</p>
-      <h3 class="cap-box-title">Methodology</h3>
-      <p class="cap-box-body">Upon developing the app, a 9-Week program was built to optimally build me back up to 91 MPH for the first time in 3 years.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Self-Testing</span>
-        <span class="cap-tag">VBT Metrics</span>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="cap-vhs-box">
-      <p class="cap-num">TRACK 04 / DATA</p>
-      <h3 class="cap-box-title">Findings &amp; Results</h3>
-      <p class="cap-box-body">Velocity-based throwing programs are an accurate way to manage fatigue and track daily workload in a thrower, properly preparing them for the demands of pitching.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">THROW App</span>
-        <span class="cap-tag">Fatigue Index</span>
-      </div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="cap-vhs-box">
-      <p class="cap-num">TRACK 05 / SUMMARY</p>
-      <h3 class="cap-box-title">Conclusions</h3>
-      <p class="cap-box-body">Public education and research into accurate and accessible workload models will continue to push the needle in the direction of optimal health and performance for athletes.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Public Education</span>
-        <span class="cap-tag">Workload Models</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="tape-stripe-bar"></div>
-
-<!-- ── NEW SECTION: MEDIA SHELF (BOOKS & MOVIES) ── -->
-<section id="media">
-  <div class="sec-header">
-    <span class="sec-tag">RETRO MEDIA SHELF / PERSONAL LOGS</span>
-    <h2 class="sec-title">Reading &amp; <em>Reels</em></h2>
-  </div>
-
-  <div class="media-grid">
-    <!-- BOOKS (Library Card Style) -->
-    <div class="book-card">
-      <div class="book-card-stamp">CHECKOUT OK</div>
-      <h3 class="book-card-title">📖 Currently Reading</h3>
-      
-      <div class="book-item">
-        <p class="book-name">The Lord of the Rings: The Fellowship of the Ring</p>
-        <p class="book-author">By J.R.R. Tolkien</p>
-        <p class="book-notes">"Not all those who wander are lost." Revisiting classic fantasy worldbuilding, narrative depth, and lore.</p>
-      </div>
-
-      <div class="book-item" style="margin-bottom:0;">
-        <p class="book-name">The Science of Hitting &amp; Motor Learning</p>
-        <p class="book-author">Performance &amp; Biomechanics Research</p>
-        <p class="book-notes">Deep dive into human movement efficiency, biomechanical overload, and athletic skill acquisition.</p>
-      </div>
-    </div>
-
-    <!-- MOVIES (VHS Cassette Cases Style) -->
-    <div>
-      <h3 style="font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem; color: var(--vhs-amber); text-transform: uppercase; margin-bottom: 1rem;">
-        📼 Last 3 Movies Watched
-      </h3>
-      
-      <div class="vhs-rack">
-        <!-- Movie 1 -->
-        <div class="vhs-case">
-          <div class="vhs-spine">BACK TO THE FUTURE</div>
-          <div class="vhs-details">
-            <p class="vhs-movie-title">Back to the Future (1985)</p>
-            <p class="vhs-movie-meta">Dir. Robert Zemeckis • Sci-Fi / Comedy</p>
-            <span class="vhs-badge-rating">RATING: ★★★★★ [88 MPH]</span>
-          </div>
+    <div class="cap-grid">
+      <div class="cap-card full">
+        <p class="cap-num">01 / OVERVIEW</p>
+        <h3 class="cap-title">The THROW App Overview</h3>
+        <p class="cap-body">The THROW App is a Baseball Player Development app that uses velocity-based programming to ensure a healthy workload for pitchers.</p>
+        <div class="cap-tags">
+          <span class="cap-tag">Velocity-Based Programs</span>
+          <span class="cap-tag">Individualized Player Plans</span>
+          <span class="cap-tag">Education on Player Health</span>
         </div>
+      </div>
 
-        <!-- Movie 2 -->
-        <div class="vhs-case">
-          <div class="vhs-spine">STAR WARS: EMPIRE</div>
-          <div class="vhs-details">
-            <p class="vhs-movie-title">Star Wars: Episode V - The Empire Strikes Back</p>
-            <p class="vhs-movie-meta">Dir. Irvin Kershner • Sci-Fi / Fantasy</p>
-            <span class="vhs-badge-rating">RATING: ★★★★★ [CINEMA GOLD]</span>
-          </div>
+      <div class="cap-card">
+        <p class="cap-num">02 / RESEARCH</p>
+        <h3 class="cap-title">Research &amp; Background</h3>
+        <p class="cap-body">The literature is out there to lay the groundwork for velocity-based throwing programs leading the way in health and player development.</p>
+        <div class="cap-tags">
+          <span class="cap-tag">Load Management</span>
+          <span class="cap-tag">Injury Prevention</span>
         </div>
+      </div>
 
-        <!-- Movie 3 -->
-        <div class="vhs-case">
-          <div class="vhs-spine">MONEYBALL</div>
-          <div class="vhs-details">
-            <p class="vhs-movie-title">Moneyball (2011)</p>
-            <p class="vhs-movie-meta">Dir. Bennett Miller • Sports / Drama</p>
-            <span class="vhs-badge-rating">RATING: ★★★★★ [DATA & SPORTS]</span>
-          </div>
+      <div class="cap-card">
+        <p class="cap-num">03 / METHODOLOGY</p>
+        <h3 class="cap-title">Methodology</h3>
+        <p class="cap-body">Upon developing the app, a 9-Week program was built to optimally build me back up to 91 MPH for the first time in 3 years.</p>
+        <div class="cap-tags">
+          <span class="cap-tag">Self-Testing</span>
+          <span class="cap-tag">VBT Metrics</span>
+        </div>
+      </div>
+
+      <div class="cap-card">
+        <p class="cap-num">04 / FINDINGS</p>
+        <h3 class="cap-title">Findings &amp; Results</h3>
+        <p class="cap-body">Velocity-based throwing programs are an accurate way to manage fatigue and track daily workload in a thrower, properly preparing them for the demands of pitching.</p>
+        <div class="cap-tags">
+          <span class="cap-tag">THROW App</span>
+          <span class="cap-tag">Health Data</span>
+        </div>
+      </div>
+
+      <div class="cap-card">
+        <p class="cap-num">05 / CONCLUSIONS</p>
+        <h3 class="cap-title">Conclusions</h3>
+        <p class="cap-body">Public education and research into accurate and accessible workload models will continue to push the needle in the direction of optimal health and performance for athletes.</p>
+        <div class="cap-tags">
+          <span class="cap-tag">Public Education</span>
+          <span class="cap-tag">Workload Models</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="tape-stripe-bar"></div>
+<!-- ── MEDIA SHELF (BOOKS & MOVIES) ── -->
+<section id="shelf">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">03 / Personal Log</span>
+      <h2 class="sec-title">Media <em>Shelf</em></h2>
+    </div>
+
+    <div class="media-grid">
+      <!-- Books Box -->
+      <div class="media-box">
+        <h3 class="media-box-title">
+          Current Books <span class="badge">READING</span>
+        </h3>
+
+        <div class="book-entry">
+          <p class="book-title">The Fellowship of the Ring</p>
+          <p class="book-author">J.R.R. Tolkien</p>
+          <p class="book-desc">Revisiting classic high fantasy worldbuilding, lore, and character journeys.</p>
+        </div>
+
+        <div class="book-entry">
+          <p class="book-title">Motor Learning and Performance</p>
+          <p class="book-author">Richard A. Schmidt</p>
+          <p class="book-desc">Principles of athletic skill acquisition, motor control, and movement mechanics.</p>
+        </div>
+      </div>
+
+      <!-- Movies Box -->
+      <div class="media-box">
+        <h3 class="media-box-title">
+          Recent Films <span class="badge">LAST 3 WATCHED</span>
+        </h3>
+
+        <div class="movie-list">
+          <div class="movie-card">
+            <div>
+              <p class="movie-name">Back to the Future (1985)</p>
+              <p class="movie-meta">Dir. Robert Zemeckis</p>
+            </div>
+            <span class="movie-tag">Sci-Fi / Classic</span>
+          </div>
+
+          <div class="movie-card">
+            <div>
+              <p class="movie-name">The Empire Strikes Back (1980)</p>
+              <p class="movie-meta">Dir. Irvin Kershner</p>
+            </div>
+            <span class="movie-tag">Star Wars</span>
+          </div>
+
+          <div class="movie-card">
+            <div>
+              <p class="movie-name">Moneyball (2011)</p>
+              <p class="movie-meta">Dir. Bennett Miller</p>
+            </div>
+            <span class="movie-tag">Sports / Analytics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── BLOG SECTION ── -->
 <section id="blog">
-  <div class="sec-header">
-    <span class="sec-tag">SUBSTACK FEED / ESSAYS &amp; THOUGHTS</span>
-    <h2 class="sec-title">Latest <em>Writing</em></h2>
-  </div>
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">04 / Publications</span>
+      <h2 class="sec-title">Latest <em>Writing</em></h2>
+    </div>
 
-  <p class="blog-intro">This is where I write my thoughts on pitching development, recent findings, and other things I find interesting.</p>
-  <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="substack-btn">
-    ↗ Read all posts directly on Substack
-  </a>
-
-  <div id="blog-grid" class="blog-grid">
-    <p style="font-family: 'VT323', monospace; font-size: 1.2rem; color: var(--vhs-steel);" id="blog-status">
-      LOADING TAPE DATA...
-    </p>
-  </div>
-
-  <div style="margin-top: 2.5rem;">
-    <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="vhs-btn vhs-btn-secondary">
-      View All Posts On Substack →
+    <p class="blog-intro">This is where I write my thoughts on pitching development, recent findings, and other things I find interesting.</p>
+    <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="substack-link">
+      Read all posts on Substack ↗
     </a>
+
+    <div id="blog-grid" class="blog-grid">
+      <p style="font-family: 'Share Tech Mono', monospace; color: var(--cream-dim);" id="blog-status">
+        Loading posts from Substack feed...
+      </p>
+    </div>
+
+    <div style="margin-top: 2.5rem;">
+      <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="btn btn-secondary">
+        View All Posts On Substack →
+      </a>
+    </div>
   </div>
 </section>
 
-<div class="tape-stripe-bar"></div>
-
 <!-- ── CONTACT SECTION ── -->
 <section id="contact">
-  <div class="sec-header">
-    <span class="sec-tag">TRANSMISSION / GET IN TOUCH</span>
-    <h2 class="sec-title">Reach <em>Out</em></h2>
-  </div>
-
-  <div class="contact-grid">
-    <div>
-      <p class="contact-copy">Reach out for inquiries, remote pitching development coaching, or if you just want to talk baseball, film, or music.</p>
-      
-      <div class="clinks">
-        <a href="mailto:chamellkelleher@gmail.com" class="clink">
-          <span>✉</span> chamellkelleher@gmail.com
-        </a>
-        <a href="https://www.instagram.com/kelleher_pitching" target="_blank" rel="noopener" class="clink">
-          <span>📷</span> @kelleher_pitching
-        </a>
-        <a href="https://x.com/cianhkelleher" target="_blank" rel="noopener" class="clink">
-          <span>𝕏</span> @cianhkelleher
-        </a>
-        <a href="https://www.linkedin.com/in/cian-hamell-kelleher-640063281/" target="_blank" rel="noopener" class="clink">
-          <span>💼</span> LinkedIn Profile
-        </a>
-      </div>
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">05 / Communication</span>
+      <h2 class="sec-title">Get In <em>Touch</em></h2>
     </div>
 
-    <div>
-      <form class="vhs-form" onsubmit="event.preventDefault(); alert('Message logged to tape!');">
-        <div>
-          <label class="flabel">/ NAME</label>
-          <input class="finput" type="text" placeholder="Enter your name..." required/>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-copy">Reach out for inquiries, player development coaching, or if you just want to connect regarding baseball, literature, or film.</p>
+        
+        <div class="clinks">
+          <a href="mailto:chamellkelleher@gmail.com" class="clink">
+            <span>✉</span> chamellkelleher@gmail.com
+          </a>
+          <a href="https://www.instagram.com/kelleher_pitching" target="_blank" rel="noopener" class="clink">
+            <span>IG</span> @kelleher_pitching
+          </a>
+          <a href="https://x.com/cianhkelleher" target="_blank" rel="noopener" class="clink">
+            <span>𝕏</span> @cianhkelleher
+          </a>
+          <a href="https://www.linkedin.com/in/cian-hamell-kelleher-640063281/" target="_blank" rel="noopener" class="clink">
+            <span>in</span> LinkedIn
+          </a>
         </div>
-        <div>
-          <label class="flabel">/ EMAIL</label>
-          <input class="finput" type="email" placeholder="your@email.com..." required/>
-        </div>
-        <div>
-          <label class="flabel">/ SUBJECT</label>
-          <input class="finput" type="text" placeholder="What's on your mind?" required/>
-        </div>
-        <div>
-          <label class="flabel">/ MESSAGE</label>
-          <textarea class="fta" rows="4" placeholder="Your message..." required></textarea>
-        </div>
-        <button type="submit" class="vhs-btn vhs-btn-primary" style="width: fit-content; border: none;">
-          ► Transmit Message
-        </button>
-      </form>
+      </div>
+
+      <div>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent!');">
+          <div>
+            <label class="flabel">/ Name</label>
+            <input class="finput" type="text" placeholder="Your name" required/>
+          </div>
+          <div>
+            <label class="flabel">/ Email</label>
+            <input class="finput" type="email" placeholder="your@email.com" required/>
+          </div>
+          <div>
+            <label class="flabel">/ Subject</label>
+            <input class="finput" type="text" placeholder="Subject" required/>
+          </div>
+          <div>
+            <label class="flabel">/ Message</label>
+            <textarea class="fta" rows="4" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: fit-content; border: none;">
+            Send Message →
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-inner">
-    <span class="foot-name">Cian Hamell-Kelleher</span>
-    <span class="foot-mid">Pitching Development &amp; Human Performance</span>
-    <span class="foot-r">[END OF TAPE • &copy; 2026]</span>
+  <div class="container">
+    <div class="foot-inner">
+      <span class="foot-name">Cian Hamell-Kelleher</span>
+      <span class="foot-mid">Pitching Development &amp; Human Performance</span>
+      <span class="foot-r">&copy; 2026</span>
+    </div>
   </div>
 </footer>
 
 <script>
-/* ── RETRO MOUSE CURSOR ── */
-const cur = document.getElementById('cursor');
-let mx = 0, my = 0, cx = 0, cy = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function tick() {
-  cx += (mx - cx) * 0.2;
-  cy += (my - cy) * 0.2;
-  cur.style.left = cx + 'px';
-  cur.style.top = cy + 'px';
-  requestAnimationFrame(tick);
-})();
-
-document.querySelectorAll('a, button, .vhs-btn, .cap-vhs-box, .vhs-case, .book-card').forEach(el => {
-  el.addEventListener('mouseenter', () => cur.classList.add('big'));
-  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
-});
-
-/* ── DYNAMIC SUBSTACK FEED FETCH ── */
+/* Substack RSS Feed Fetcher */
 (async function loadBlog() {
   const status = document.getElementById('blog-status');
   const grid = document.getElementById('blog-grid');
@@ -798,7 +659,7 @@ document.querySelectorAll('a, button, .vhs-btn, .cap-vhs-box, .vhs-case, .book-c
     const res = await fetch(proxy);
     const data = await res.json();
     if (!data.items || data.items.length === 0) {
-      status.textContent = 'NO RECENT TAPE POSTS FOUND.';
+      status.textContent = 'No posts found.';
       return;
     }
     status.remove();
@@ -814,18 +675,15 @@ document.querySelectorAll('a, button, .vhs-btn, .cap-vhs-box, .vhs-case, .book-c
       card.target = '_blank';
       card.rel = 'noopener';
       card.innerHTML = `
-        <p class="blog-date">REC DATE: ${date}</p>
-        <h3 class="blog-title">${post.title}</h3>
+        <p class="blog-date">${date}</p>
+        <h3 class="blog-card-title">${post.title}</h3>
         <p class="blog-excerpt">${excerpt}</p>
-        <span class="blog-read">► Read Substack Entry</span>
+        <span class="blog-read">Read Post →</span>
       `;
       grid.appendChild(card);
-      
-      card.addEventListener('mouseenter', () => cur.classList.add('big'));
-      card.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
   } catch (e) {
-    status.textContent = 'POSTS TEMPORARILY UNAVAILABLE — VISIT SUBSTACK DIRECTLY.';
+    status.textContent = 'Posts temporarily unavailable — visit Substack directly.';
   }
 })();
 </script>
