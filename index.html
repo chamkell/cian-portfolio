@@ -3,689 +3,708 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cian Hamell-Kelleher | Pitching Dev &amp; Player Performance</title>
+<title>Cian Hamell-Kelleher — Player Development &amp; Notes</title>
 
-<!-- Retro-Modern Typography -->
+<!-- Editorial Fonts: Instrument Serif + Plus Jakarta Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg:          #111318;
-  --surface:     #171a22;
-  --surface-2:   #202430;
-  --border:      #2b3040;
-  
-  --amber:       #e5a855;
-  --orange:      #db6b39;
-  --red:         #cc4444;
-  --teal:        #4ca6a0;
-  
-  --cream:       #eee9df;
-  --cream-dim:   #a8adba;
-  
-  /* Muted Analog Rainbow Accent Line */
-  --stripe-gradient: linear-gradient(90deg, #cc4444 0%, #db6b39 25%, #e5a855 50%, #4ca6a0 75%, #3b82f6 100%);
+  --bg:          #faf8f5;
+  --surface:     #ffffff;
+  --surface-alt: #f3efe9;
+  --text-main:   #1a1917;
+  --text-muted:  #66625d;
+  --border:      #e5ded4;
+  --accent:      #9e3a2b; /* Warm terracotta/crimson */
+  --accent-light:#f7ecea;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
-  color: var(--cream);
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* Subtle Stripe Border */
-.stripe-bar {
-  height: 3px;
-  width: 100%;
-  background: var(--stripe-gradient);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Container */
 .container {
-  max-width: 1120px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
+  width: 100%;
 }
 
-/* NAV BAR */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(17, 19, 24, 0.92);
-  backdrop-filter: blur(16px);
+/* ── HEADER / NAVIGATION ── */
+header {
   border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
 }
-.nav-logo {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem;
-  color: var(--cream); text-decoration: none; text-transform: uppercase;
-  letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.6rem;
+.brand {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-main);
+  text-decoration: none;
+  letter-spacing: -0.01em;
 }
-.nav-logo-badge {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
-  background: rgba(229, 168, 85, 0.15); color: var(--amber);
-  border: 1px solid rgba(229, 168, 85, 0.3); padding: 0.1rem 0.4rem;
-}
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-  color: var(--cream-dim); text-decoration: none; text-transform: uppercase;
-  letter-spacing: 0.1em; transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--amber); }
-
-/* ── HERO ── */
-#home {
-  padding: 10rem 0 5rem;
-  min-height: 90vh;
-  display: flex; flex-direction: column; justify-content: center;
-  position: relative;
-  background: radial-gradient(circle at 80% 20%, rgba(229, 168, 85, 0.04) 0%, transparent 50%);
+.brand span {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-left: 0.5rem;
+  background: var(--accent-light);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
 }
 
-.hero-meta {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-  color: var(--amber); text-transform: uppercase; letter-spacing: 0.15em;
-  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+nav ul {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
 }
-.hero-meta::before {
-  content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%;
+nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+nav a:hover, nav a.active {
+  color: var(--text-main);
+  font-weight: 600;
+}
+.btn-write-nav {
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+  background: var(--accent-light);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(158, 58, 43, 0.2);
 }
 
-.hero-title {
-  font-family: 'Syne', sans-serif; font-weight: 800;
-  font-size: clamp(2.2rem, 5vw, 4.2rem); color: var(--cream);
-  line-height: 1.05; text-transform: uppercase; letter-spacing: -0.01em;
+/* ── PAGE ROUTING ARCHITECTURE ── */
+.page {
+  display: none;
+  padding: 3.5rem 0 5rem;
+  animation: fadeIn 0.25s ease-out;
+}
+.page.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typography Helpers */
+h1.page-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.page-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* ── PAGE 1: HOME ── */
+.hero-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  margin-bottom: 3rem;
+}
+.hero-box p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.8rem;
+}
+.card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
   margin-bottom: 1.2rem;
 }
-.hero-subtitle {
-  font-family: 'Share Tech Mono', monospace; font-size: clamp(1rem, 2vw, 1.35rem);
-  color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em;
-  margin-bottom: 1.8rem;
+.link-btn {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
+.link-btn:hover { text-decoration: underline; }
 
-.hero-desc {
-  font-size: 1.15rem; color: var(--cream-dim); max-width: 680px;
-  margin-bottom: 2.5rem; border-left: 2px solid var(--amber);
-  padding-left: 1.2rem; line-height: 1.8;
+/* ── PAGE 2: ABOUT ── */
+.about-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
 }
-
-.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-
-.btn {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.9rem;
-  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
-  padding: 0.85rem 1.8rem; display: inline-flex; align-items: center; gap: 0.6rem;
-  transition: all 0.2s ease; border: 1px solid transparent; cursor: pointer;
+.prose p {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
 }
+.prose strong { color: var(--text-main); }
+
+.sidebar-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.sidebar-box h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.meta-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem; }
+.meta-list li span { color: var(--text-muted); display: block; font-size: 0.75rem; text-transform: uppercase; }
+
+/* ── PAGE 3: THROW APP (CAPSTONE) ── */
+.app-hero {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.app-card-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.app-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+.app-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ── PAGE 4: MEDIA SHELF ── */
+.shelf-section { margin-bottom: 3rem; }
+.shelf-header {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+.shelf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.shelf-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.2rem;
+  border-radius: 8px;
+}
+.shelf-item .title { font-weight: 600; font-size: 1rem; }
+.shelf-item .sub { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; }
+.shelf-item .desc { font-size: 0.88rem; color: var(--text-muted); }
+
+/* ── PAGE 5: BLOG & READER ── */
+.blog-list { display: flex; flex-direction: column; gap: 1.8rem; }
+.blog-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2rem;
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+.blog-item:hover { border-color: var(--accent); }
+.blog-meta { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; text-transform: uppercase; }
+.blog-item h2 { font-family: 'Instrument Serif', serif; font-size: 1.8rem; margin-bottom: 0.6rem; line-height: 1.2; }
+.blog-excerpt { color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; }
+
+/* Article Full Reader View */
+#single-post-view { display: none; }
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.back-link:hover { color: var(--text-main); }
+.post-header { margin-bottom: 2rem; }
+.post-date { font-size: 0.85rem; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+.post-full-title { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); margin-top: 0.4rem; line-height: 1.15; }
+.post-body { font-size: 1.1rem; color: #2c2b29; line-height: 1.85; white-space: pre-wrap; }
+
+/* ── PAGE 6: PUBLISHING EDITOR ── */
+.editor-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+.form-group { margin-bottom: 1.5rem; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.form-control {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-control:focus { border-color: var(--accent); background: #fff; }
+textarea.form-control { min-height: 240px; resize: vertical; line-height: 1.6; }
+
 .btn-primary {
-  background: var(--amber); color: #111; font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
 }
-.btn-primary:hover { background: #f0b260; transform: translateY(-2px); }
+.btn-primary:hover { background: #822e21; }
 
-.btn-secondary {
-  background: var(--surface); color: var(--cream); border-color: var(--border);
+/* Footer */
+footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+  background: var(--bg);
 }
-.btn-secondary:hover { border-color: var(--cream-dim); color: var(--amber); transform: translateY(-2px); }
-
-/* Retro Athletic Highlights Bar */
-.stats-bar {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.2rem; background: var(--surface); border: 1px solid var(--border);
-  padding: 1.5rem; border-top: 2px solid var(--amber);
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
-.stat-item { display: flex; flex-direction: column; }
-.stat-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--cream); line-height: 1.1; }
-.stat-lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cream-dim); text-transform: uppercase; margin-top: 0.3rem; letter-spacing: 0.05em; }
-
-/* ── SECTIONS ── */
-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
-
-.sec-header { margin-bottom: 3rem; }
-.sec-tag {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber);
-  text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.4rem; display: block;
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 1.2rem;
 }
-.sec-title {
-  font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 800; color: var(--cream); text-transform: uppercase;
-}
-.sec-title em { color: var(--amber); font-style: normal; }
+.footer-links a:hover { color: var(--text-main); }
 
-/* ── ABOUT SECTION ── */
-.about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: start; }
-.about-text p { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 1.4rem; line-height: 1.8; }
-.about-text p strong { color: var(--cream); font-weight: 600; }
-
-.profile-card {
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 1.8rem; position: relative;
-}
-.profile-card-header {
-  border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.2rem;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.profile-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--cream); text-transform: uppercase; }
-.profile-card-no { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--red); }
-
-.info-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
-.info-item { display: flex; gap: 1rem; align-items: flex-start; }
-.info-icon { font-size: 1.1rem; width: 24px; text-align: center; }
-.info-lbl { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cream-dim); text-transform: uppercase; }
-.info-val { font-size: 1rem; color: var(--cream); font-weight: 500; }
-
-/* ── CAPSTONE / THROW APP ── */
-.cap-intro { font-size: 1.15rem; color: var(--cream-dim); max-width: 720px; margin-bottom: 3rem; line-height: 1.8; }
-
-.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-
-.cap-card {
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 1.8rem; transition: transform 0.2s, border-color 0.2s;
-  position: relative;
-}
-.cap-card:hover { transform: translateY(-3px); border-color: rgba(229, 168, 85, 0.4); }
-.cap-card.full { grid-column: 1 / -1; border-top: 3px solid var(--amber); }
-
-.cap-num { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.5rem; }
-.cap-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-transform: uppercase; margin-bottom: 0.8rem; }
-.cap-body { font-size: 1rem; color: var(--cream-dim); margin-bottom: 1.2rem; line-height: 1.7; }
-.cap-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.cap-tag {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
-  padding: 0.25rem 0.6rem; background: var(--surface-2);
-  border: 1px solid var(--border); color: var(--cream-dim);
-}
-
-/* ── MEDIA SHELF (BOOKS & MOVIES) ── */
-.media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-
-.media-box {
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 2rem; position: relative;
-}
-.media-box-title {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.25rem;
-  color: var(--cream); text-transform: uppercase; margin-bottom: 1.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;
-}
-.media-box-title span.badge {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
-  color: var(--amber); background: rgba(229, 168, 85, 0.1);
-  padding: 0.2rem 0.6rem; border: 1px solid rgba(229, 168, 85, 0.2);
-}
-
-.book-entry { margin-bottom: 1.5rem; }
-.book-entry:last-child { margin-bottom: 0; }
-.book-title { font-weight: 600; font-size: 1.05rem; color: var(--cream); }
-.book-author { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.4rem; }
-.book-desc { font-size: 0.95rem; color: var(--cream-dim); line-height: 1.5; }
-
-.movie-list { display: flex; flex-direction: column; gap: 1rem; }
-.movie-card {
-  background: var(--surface-2); border: 1px solid var(--border);
-  padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center;
-  transition: border-color 0.2s;
-}
-.movie-card:hover { border-color: var(--amber); }
-.movie-name { font-weight: 600; font-size: 1rem; color: var(--cream); }
-.movie-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--cream-dim); margin-top: 0.2rem; }
-.movie-tag {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
-  color: var(--teal); background: rgba(76, 166, 160, 0.1);
-  padding: 0.2rem 0.5rem; border: 1px solid rgba(76, 166, 160, 0.2);
-}
-
-/* ── BLOG SECTION ── */
-.blog-intro { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 0.6rem; }
-.substack-link {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-  color: var(--amber); text-decoration: none; text-transform: uppercase;
-  margin-bottom: 2.5rem; transition: color 0.2s;
-}
-.substack-link:hover { color: var(--orange); }
-
-.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-.blog-card {
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 1.8rem; text-decoration: none; display: block;
-  transition: transform 0.2s, border-color 0.2s;
-}
-.blog-card:hover { transform: translateY(-3px); border-color: var(--amber); }
-.blog-date { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); margin-bottom: 0.6rem; }
-.blog-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.8rem; line-height: 1.4; }
-.blog-excerpt { font-size: 0.95rem; color: var(--cream-dim); margin-bottom: 1.2rem; line-height: 1.6; }
-.blog-read { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--cream); text-transform: uppercase; }
-
-/* ── CONTACT ── */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-.contact-copy { font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 2rem; }
-
-.clinks { display: flex; flex-direction: column; gap: 0.8rem; }
-.clink {
-  display: flex; align-items: center; gap: 1rem;
-  color: var(--cream); text-decoration: none;
-  font-family: 'Share Tech Mono', monospace; font-size: 0.95rem;
-  padding: 0.9rem 1.2rem; background: var(--surface);
-  border: 1px solid var(--border); transition: all 0.2s;
-}
-.clink:hover { border-color: var(--amber); background: var(--surface-2); transform: translateX(4px); }
-
-.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-.flabel { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--amber); display: block; margin-bottom: 0.3rem; text-transform: uppercase; }
-.finput, .fta {
-  width: 100%; background: var(--surface); border: 1px solid var(--border);
-  color: var(--cream); font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
-  padding: 0.85rem; outline: none; transition: border-color 0.2s;
-}
-.finput:focus, .fta:focus { border-color: var(--amber); background: var(--surface-2); }
-
-/* ── FOOTER ── */
-footer { padding: 3rem 0; background: #0c0e12; }
-.foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-.foot-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--cream); }
-.foot-mid { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--cream-dim); text-transform: uppercase; }
-.foot-r { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--amber); }
-
-@media(max-width: 900px) {
-  .nav-links { gap: 1rem; }
-  section { padding: 4rem 0; }
-  #home { padding: 8rem 0 4rem; }
-  .about-grid, .contact-grid, .media-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+@media (max-width: 768px) {
+  .home-grid, .about-content, .shelf-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  nav ul { gap: 1rem; }
+  .nav-inner { height: auto; padding: 1rem 0; flex-direction: column; gap: 1rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="stripe-bar"></div>
-
-<!-- NAV BAR -->
-<nav>
+<!-- NAVIGATION -->
+<header>
   <div class="container">
     <div class="nav-inner">
-      <a href="#home" class="nav-logo">
-        Cian Hamell-Kelleher <span class="nav-logo-badge">DEV / ARCHIVE</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">THROW App</a></li>
-        <li><a href="#shelf">Shelf</a></li>
-        <li><a href="#blog">Writing</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- ── HERO ── -->
-<section id="home">
-  <div class="container">
-    <span class="hero-meta">Player Performance &amp; Analytics Log</span>
-    
-    <h1 class="hero-title">Process-Driven<br>Player Development</h1>
-    <p class="hero-subtitle">A holistic approach to building robust pitchers</p>
-
-    <p class="hero-desc">
-      Interested in throwing implements cooler. Also a fan of history, film, music, and learning. Here to share my thoughts and findings on most things and get you, yes YOU, better at throwing a 5oz white ball with red laces.
-    </p>
-
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-primary">View Capstone Project →</a>
-      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-    </div>
-
-    <div class="stats-bar">
-      <div class="stat-item">
-        <span class="stat-val">91.0 MPH</span>
-        <span class="stat-lbl">Peak Reached</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-val">9-WEEK</span>
-        <span class="stat-lbl">VBT Protocol Cycle</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-val">HS / COL</span>
-        <span class="stat-lbl">Coaching Experience</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ABOUT SECTION ── -->
-<section id="about">
-  <div class="container">
-    <div class="sec-header">
-      <span class="sec-tag">01 / Background</span>
-      <h2 class="sec-title">About <em>Me</em></h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I'm working to build a healthier and more educated general population in the baseball world to push player development forward.
-        </p>
-        <p>
-          My goal is to help build <strong>robust pitchers through process and data-driven development</strong>, with player health and performance at the forefront. I have experience working with pitchers at the High School and Collegiate levels.
-        </p>
-        <p>
-          I am currently working as an independent remote <strong>Player Performance Coach</strong>. Contact me for inquiries.
-        </p>
-      </div>
-
-      <div class="profile-card">
-        <div class="profile-card-header">
-          <span class="profile-card-title">Quick Info</span>
-          <span class="profile-card-no">REF-2026</span>
-        </div>
-        <ul class="info-list">
-          <li class="info-item">
-            <span class="info-icon">🎓</span>
-            <div>
-              <p class="info-lbl">Academics</p>
-              <p class="info-val">B.A. Communication @ Stonehill College</p>
-            </div>
-          </li>
-          <li class="info-item">
-            <span class="info-icon">⚾</span>
-            <div>
-              <p class="info-lbl">Focus Area</p>
-              <p class="info-val">Pitching Development &amp; Human Performance</p>
-            </div>
-          </li>
-          <li class="info-item">
-            <span class="info-icon">📍</span>
-            <div>
-              <p class="info-lbl">Location</p>
-              <p class="info-val">Attleboro, MA</p>
-            </div>
-          </li>
-          <li class="info-item">
-            <span class="info-icon">📅</span>
-            <div>
-              <p class="info-lbl">Year</p>
-              <p class="info-val">2026</p>
-            </div>
-          </li>
+      <a href="#" onclick="nav('home')" class="brand">Cian Hamell-Kelleher <span>DEV &amp; NOTES</span></a>
+      <nav>
+        <ul>
+          <li><a href="#" class="nav-link active" data-page="home" onclick="nav('home')">Home</a></li>
+          <li><a href="#" class="nav-link" data-page="about" onclick="nav('about')">About</a></li>
+          <li><a href="#" class="nav-link" data-page="app" onclick="nav('app')">THROW App</a></li>
+          <li><a href="#" class="nav-link" data-page="shelf" onclick="nav('shelf')">Shelf</a></li>
+          <li><a href="#" class="nav-link" data-page="blog" onclick="nav('blog')">Writing</a></li>
+          <li><a href="#" class="nav-link btn-write-nav" data-page="write" onclick="nav('write')">+ New Post</a></li>
         </ul>
-      </div>
+      </nav>
     </div>
   </div>
-</section>
+</header>
 
-<!-- ── CAPSTONE / PROJECTS ── -->
-<section id="projects">
-  <div class="container">
-    <div class="sec-header">
-      <span class="sec-tag">02 / Senior Capstone</span>
-      <h2 class="sec-title">The <em>THROW App</em></h2>
-    </div>
+<main class="container">
 
-    <p class="cap-intro">
-      Injury rates for baseball pitchers are at an all time high. High schoolers getting Tommy John surgery has become a regularity in the sport, so what's going to change to curb this trend? Contact me to get started on the THROW App today!
-    </p>
-
-    <div class="cap-grid">
-      <div class="cap-card full">
-        <p class="cap-num">01 / OVERVIEW</p>
-        <h3 class="cap-title">The THROW App Overview</h3>
-        <p class="cap-body">The THROW App is a Baseball Player Development app that uses velocity-based programming to ensure a healthy workload for pitchers.</p>
-        <div class="cap-tags">
-          <span class="cap-tag">Velocity-Based Programs</span>
-          <span class="cap-tag">Individualized Player Plans</span>
-          <span class="cap-tag">Education on Player Health</span>
-        </div>
-      </div>
-
-      <div class="cap-card">
-        <p class="cap-num">02 / RESEARCH</p>
-        <h3 class="cap-title">Research &amp; Background</h3>
-        <p class="cap-body">The literature is out there to lay the groundwork for velocity-based throwing programs leading the way in health and player development.</p>
-        <div class="cap-tags">
-          <span class="cap-tag">Load Management</span>
-          <span class="cap-tag">Injury Prevention</span>
-        </div>
-      </div>
-
-      <div class="cap-card">
-        <p class="cap-num">03 / METHODOLOGY</p>
-        <h3 class="cap-title">Methodology</h3>
-        <p class="cap-body">Upon developing the app, a 9-Week program was built to optimally build me back up to 91 MPH for the first time in 3 years.</p>
-        <div class="cap-tags">
-          <span class="cap-tag">Self-Testing</span>
-          <span class="cap-tag">VBT Metrics</span>
-        </div>
-      </div>
-
-      <div class="cap-card">
-        <p class="cap-num">04 / FINDINGS</p>
-        <h3 class="cap-title">Findings &amp; Results</h3>
-        <p class="cap-body">Velocity-based throwing programs are an accurate way to manage fatigue and track daily workload in a thrower, properly preparing them for the demands of pitching.</p>
-        <div class="cap-tags">
-          <span class="cap-tag">THROW App</span>
-          <span class="cap-tag">Health Data</span>
-        </div>
-      </div>
-
-      <div class="cap-card">
-        <p class="cap-num">05 / CONCLUSIONS</p>
-        <h3 class="cap-title">Conclusions</h3>
-        <p class="cap-body">Public education and research into accurate and accessible workload models will continue to push the needle in the direction of optimal health and performance for athletes.</p>
-        <div class="cap-tags">
-          <span class="cap-tag">Public Education</span>
-          <span class="cap-tag">Workload Models</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── MEDIA SHELF (BOOKS & MOVIES) ── -->
-<section id="shelf">
-  <div class="container">
-    <div class="sec-header">
-      <span class="sec-tag">03 / Personal Log</span>
-      <h2 class="sec-title">Media <em>Shelf</em></h2>
-    </div>
-
-    <div class="media-grid">
-      <!-- Books Box -->
-      <div class="media-box">
-        <h3 class="media-box-title">
-          Current Books <span class="badge">READING</span>
-        </h3>
-
-        <div class="book-entry">
-          <p class="book-title">The Fellowship of the Ring</p>
-          <p class="book-author">J.R.R. Tolkien</p>
-          <p class="book-desc">Revisiting classic high fantasy worldbuilding, lore, and character journeys.</p>
-        </div>
-
-        <div class="book-entry">
-          <p class="book-title">Motor Learning and Performance</p>
-          <p class="book-author">Richard A. Schmidt</p>
-          <p class="book-desc">Principles of athletic skill acquisition, motor control, and movement mechanics.</p>
-        </div>
-      </div>
-
-      <!-- Movies Box -->
-      <div class="media-box">
-        <h3 class="media-box-title">
-          Recent Films <span class="badge">LAST 3 WATCHED</span>
-        </h3>
-
-        <div class="movie-list">
-          <div class="movie-card">
-            <div>
-              <p class="movie-name">Back to the Future (1985)</p>
-              <p class="movie-meta">Dir. Robert Zemeckis</p>
-            </div>
-            <span class="movie-tag">Sci-Fi / Classic</span>
-          </div>
-
-          <div class="movie-card">
-            <div>
-              <p class="movie-name">The Empire Strikes Back (1980)</p>
-              <p class="movie-meta">Dir. Irvin Kershner</p>
-            </div>
-            <span class="movie-tag">Star Wars</span>
-          </div>
-
-          <div class="movie-card">
-            <div>
-              <p class="movie-name">Moneyball (2011)</p>
-              <p class="movie-meta">Dir. Bennett Miller</p>
-            </div>
-            <span class="movie-tag">Sports / Analytics</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── BLOG SECTION ── -->
-<section id="blog">
-  <div class="container">
-    <div class="sec-header">
-      <span class="sec-tag">04 / Publications</span>
-      <h2 class="sec-title">Latest <em>Writing</em></h2>
-    </div>
-
-    <p class="blog-intro">This is where I write my thoughts on pitching development, recent findings, and other things I find interesting.</p>
-    <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="substack-link">
-      Read all posts on Substack ↗
-    </a>
-
-    <div id="blog-grid" class="blog-grid">
-      <p style="font-family: 'Share Tech Mono', monospace; color: var(--cream-dim);" id="blog-status">
-        Loading posts from Substack feed...
+  <!-- ── 1. HOME PAGE ── -->
+  <section id="page-home" class="page active">
+    <div class="hero-box">
+      <h1 class="page-title">Process-Driven Player Development</h1>
+      <p>
+        Building robust pitchers through workload management, velocity-based protocols, and science-backed performance tracking. Here to share thoughts on human mechanics, pitching development, history, and literature.
       </p>
     </div>
 
-    <div style="margin-top: 2.5rem;">
-      <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="btn btn-secondary">
-        View All Posts On Substack →
-      </a>
-    </div>
-  </div>
-</section>
+    <div class="home-grid">
+      <div class="card">
+        <h3>Senior Capstone Project</h3>
+        <p>Explore the THROW App—a velocity-based throwing platform designed to curb Tommy John injury trends in athletes.</p>
+        <span class="link-btn" onclick="nav('app')">Read THROW App Details →</span>
+      </div>
 
-<!-- ── CONTACT SECTION ── -->
-<section id="contact">
-  <div class="container">
-    <div class="sec-header">
-      <span class="sec-tag">05 / Communication</span>
-      <h2 class="sec-title">Get In <em>Touch</em></h2>
+      <div class="card">
+        <h3>Latest Writing &amp; Notes</h3>
+        <p>Published articles on motor learning, pitch design, workload models, and personal logs directly on this site.</p>
+        <span class="link-btn" onclick="nav('blog')">Browse All Articles →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. ABOUT PAGE ── -->
+  <section id="page-about" class="page">
+    <h1 class="page-title">About</h1>
+    <p class="page-subtitle">Player Performance Coach based in Attleboro, MA.</p>
+
+    <div class="about-content">
+      <div class="prose">
+        <p>
+          I'm working to build a healthier and more educated community in the baseball world to push player development forward.
+        </p>
+        <p>
+          My focus is developing <strong>robust pitchers through process and data-driven methods</strong>, prioritizing long-term arm health without compromising velocity or performance. I have hands-on experience working with pitchers across High School and Collegiate levels.
+        </p>
+        <p>
+          Currently, I operate as an independent remote <strong>Player Performance Coach</strong> while researching velocity-based throwing frameworks.
+        </p>
+      </div>
+
+      <div class="sidebar-box">
+        <h4>Overview</h4>
+        <ul class="meta-list">
+          <li><span>Education</span>B.A. Communication @ Stonehill College</li>
+          <li><span>Focus</span>Pitching Dev &amp; Human Performance</li>
+          <li><span>Location</span>Attleboro, MA</li>
+          <li><span>Contact</span>chamellkelleher@gmail.com</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. THROW APP PAGE ── -->
+  <section id="page-app" class="page">
+    <h1 class="page-title">The THROW App</h1>
+    <p class="page-subtitle">Velocity-Based Programming for Long-Term Pitcher Health</p>
+
+    <div class="app-hero">
+      <p style="font-size: 1.1rem; color: var(--text-muted);">
+        Injury rates for baseball pitchers are at an all-time high. High school athletes undergoing ulnar collateral ligament (Tommy John) reconstruction has become far too routine. The THROW App introduces velocity-based metrics to safeguard athlete arm health.
+      </p>
     </div>
 
-    <div class="contact-grid">
-      <div>
-        <p class="contact-copy">Reach out for inquiries, player development coaching, or if you just want to connect regarding baseball, literature, or film.</p>
-        
-        <div class="clinks">
-          <a href="mailto:chamellkelleher@gmail.com" class="clink">
-            <span>✉</span> chamellkelleher@gmail.com
-          </a>
-          <a href="https://www.instagram.com/kelleher_pitching" target="_blank" rel="noopener" class="clink">
-            <span>IG</span> @kelleher_pitching
-          </a>
-          <a href="https://x.com/cianhkelleher" target="_blank" rel="noopener" class="clink">
-            <span>𝕏</span> @cianhkelleher
-          </a>
-          <a href="https://www.linkedin.com/in/cian-hamell-kelleher-640063281/" target="_blank" rel="noopener" class="clink">
-            <span>in</span> LinkedIn
-          </a>
+    <div class="app-grid">
+      <div class="app-card">
+        <div class="app-card-num">01 / Overview</div>
+        <h3>Targeted Workloads</h3>
+        <p>Uses daily velocity feedback to dynamically auto-regulate daily throwing volume and intensity.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-num">02 / Research</div>
+        <h3>Load Management</h3>
+        <p>Grounded in sports science literature to ensure athletes build capacity without crossing injury thresholds.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-num">03 / Methodology</div>
+        <h3>9-Week Protocol</h3>
+        <p>Tested through a 9-week rebuild protocol that safely brought peak throwing velocity back to 91.0 MPH.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-num">04 / Findings</div>
+        <h3>Fatigue Tracking</h3>
+        <p>VBT tracking serves as a reliable proxy for neuromuscular fatigue, preventing over-use injuries.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. MEDIA SHELF PAGE ── -->
+  <section id="page-shelf" class="page">
+    <h1 class="page-title">Media Shelf</h1>
+    <p class="page-subtitle">Books, films, and references currently influencing my work and thought.</p>
+
+    <div class="shelf-section">
+      <h2 class="shelf-header">Books</h2>
+      <div class="shelf-grid">
+        <div class="shelf-item">
+          <div class="title">The Fellowship of the Ring</div>
+          <div class="sub">J.R.R. Tolkien</div>
+          <div class="desc">A study in worldbuilding, lore, and epic narrative pacing.</div>
+        </div>
+        <div class="shelf-item">
+          <div class="title">Motor Learning and Performance</div>
+          <div class="sub">Richard A. Schmidt</div>
+          <div class="desc">Foundational principles of motor skill acquisition and athletic movement.</div>
         </div>
       </div>
+    </div>
 
-      <div>
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent!');">
-          <div>
-            <label class="flabel">/ Name</label>
-            <input class="finput" type="text" placeholder="Your name" required/>
-          </div>
-          <div>
-            <label class="flabel">/ Email</label>
-            <input class="finput" type="email" placeholder="your@email.com" required/>
-          </div>
-          <div>
-            <label class="flabel">/ Subject</label>
-            <input class="finput" type="text" placeholder="Subject" required/>
-          </div>
-          <div>
-            <label class="flabel">/ Message</label>
-            <textarea class="fta" rows="4" placeholder="Your message..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: fit-content; border: none;">
-            Send Message →
-          </button>
-        </form>
+    <div class="shelf-section">
+      <h2 class="shelf-header">Recent Films</h2>
+      <div class="shelf-grid">
+        <div class="shelf-item">
+          <div class="title">Moneyball (2011)</div>
+          <div class="sub">Dir. Bennett Miller</div>
+          <div class="desc">Analytics, market inefficiency, and questioning dogma in sports.</div>
+        </div>
+        <div class="shelf-item">
+          <div class="title">The Empire Strikes Back (1980)</div>
+          <div class="sub">Dir. Irvin Kershner</div>
+          <div class="desc">Classic story structure and cinematic character development.</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ── 5. BLOG PAGE (WRITING & READER) ── -->
+  <section id="page-blog" class="page">
+    <!-- List View -->
+    <div id="blog-list-view">
+      <h1 class="page-title">Writing &amp; Logs</h1>
+      <p class="page-subtitle">Articles on pitching mechanics, training protocols, and personal logs.</p>
+      <div id="blog-posts-container" class="blog-list"></div>
+    </div>
+
+    <!-- Individual Post Reader View -->
+    <div id="single-post-view">
+      <span class="back-link" onclick="closeArticle()">← Back to all posts</span>
+      <article>
+        <div class="post-header">
+          <span class="post-date" id="post-date"></span>
+          <h1 class="post-full-title" id="post-title"></h1>
+        </div>
+        <div class="post-body" id="post-body"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── 6. PUBLISH NEW POST PAGE ── -->
+  <section id="page-write" class="page">
+    <h1 class="page-title">Publish to Site</h1>
+    <p class="page-subtitle">Write and post an article directly to your website. It will appear on the Writing page immediately.</p>
+
+    <div class="editor-card">
+      <form id="publish-form" onsubmit="handlePublish(event)">
+        <div class="form-group">
+          <label>Article Title</label>
+          <input type="text" id="post-title-input" class="form-control" placeholder="e.g. Velocity Auto-Regulation in 9-Week Cycles" required />
+        </div>
+
+        <div class="form-group">
+          <label>Category / Tag</label>
+          <input type="text" id="post-tag-input" class="form-control" placeholder="e.g. Pitching Dev / VBT" required />
+        </div>
+
+        <div class="form-group">
+          <label>Content</label>
+          <textarea id="post-content-input" class="form-control" placeholder="Write your post here..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Publish Article Now →</button>
+      </form>
+    </div>
+  </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <div class="foot-inner">
-      <span class="foot-name">Cian Hamell-Kelleher</span>
-      <span class="foot-mid">Pitching Development &amp; Human Performance</span>
-      <span class="foot-r">&copy; 2026</span>
+    <div class="footer-inner">
+      <div>&copy; 2026 Cian Hamell-Kelleher</div>
+      <div class="footer-links">
+        <a href="https://x.com/cianhkelleher" target="_blank">Twitter/X</a>
+        <a href="https://www.instagram.com/kelleher_pitching" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/cian-hamell-kelleher-640063281/" target="_blank">LinkedIn</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-/* Substack RSS Feed Fetcher */
-(async function loadBlog() {
-  const status = document.getElementById('blog-status');
-  const grid = document.getElementById('blog-grid');
-  const feedUrl = 'https://chamellkelleher.substack.com/feed';
-  const proxy = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=6`;
-  
-  try {
-    const res = await fetch(proxy);
-    const data = await res.json();
-    if (!data.items || data.items.length === 0) {
-      status.textContent = 'No posts found.';
-      return;
-    }
-    status.remove();
-    data.items.forEach(post => {
-      const date = new Date(post.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-      const tmp = document.createElement('div');
-      tmp.innerHTML = post.description || '';
-      const excerpt = (tmp.textContent || '').slice(0, 130).trim() + '…';
-      
-      const card = document.createElement('a');
-      card.className = 'blog-card';
-      card.href = post.link;
-      card.target = '_blank';
-      card.rel = 'noopener';
-      card.innerHTML = `
-        <p class="blog-date">${date}</p>
-        <h3 class="blog-card-title">${post.title}</h3>
-        <p class="blog-excerpt">${excerpt}</p>
-        <span class="blog-read">Read Post →</span>
-      `;
-      grid.appendChild(card);
-    });
-  } catch (e) {
-    status.textContent = 'Posts temporarily unavailable — visit Substack directly.';
+/* ── MULTI-PAGE ROUTER ── */
+function nav(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
   }
-})();
+
+  const navItem = document.querySelector(`[data-page="${pageId}"]`);
+  if (navItem) navItem.classList.add('active');
+
+  // Reset blog reader view if navigating to blog
+  if (pageId === 'blog') {
+    closeArticle();
+  }
+}
+
+/* ── ON-SITE BLOGGING SYSTEM (LOCAL STORAGE CMS) ── */
+const DEFAULT_POSTS = [
+  {
+    id: 1,
+    title: "Understanding Velocity-Based Training in Pitching Protocols",
+    tag: "Pitching Dev",
+    date: "Sep 10, 2026",
+    content: `Managing stress and fatigue in throwing athletes requires more than just counting rep counts or innings. Micro-fluctuations in daily velocity provide real-time feedback on neuromuscular readiness.\n\nWhen an athlete demonstrates a 3-5% drop in velocity on baseline throws, it serves as an early indicator of central nervous system fatigue long before subjective soreness sets in. By adjusting workload dynamically based on these outputs, we can safely push velocity boundaries while mitigating Tommy John surgical risk.`
+  },
+  {
+    id: 2,
+    title: "Motor Skill Acquisition: Principles from Schmidt's Frameworks",
+    tag: "Motor Learning",
+    date: "Aug 28, 2026",
+    content: `Athletes don't learn motor skills by repeating identical movements in rigid, controlled constraints. Skill acquisition thrives on differential practice and variable environments.\n\nBy introducing subtle constraints in throwing drills (varied implement weights, distance variation, target constraints), pitchers develop adaptable motor patterns rather than brittle, rigid mechanics.`
+  }
+];
+
+function getStoredPosts() {
+  const data = localStorage.getItem('cian_blog_posts');
+  if (!data) {
+    localStorage.setItem('cian_blog_posts', JSON.stringify(DEFAULT_POSTS));
+    return DEFAULT_POSTS;
+  }
+  return JSON.parse(data);
+}
+
+function renderBlogList() {
+  const container = document.getElementById('blog-posts-container');
+  const posts = getStoredPosts();
+  
+  container.innerHTML = '';
+  posts.forEach(post => {
+    const el = document.createElement('div');
+    el.className = 'blog-item';
+    el.onclick = () => openArticle(post.id);
+    
+    // Generate excerpt
+    const excerpt = post.content.slice(0, 140) + '...';
+
+    el.innerHTML = `
+      <div class="blog-meta">${post.tag} • ${post.date}</div>
+      <h2>${post.title}</h2>
+      <p class="blog-excerpt">${excerpt}</p>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function openArticle(id) {
+  const posts = getStoredPosts();
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+
+  document.getElementById('blog-list-view').style.display = 'none';
+  document.getElementById('single-post-view').style.display = 'block';
+
+  document.getElementById('post-date').textContent = `${post.tag} — ${post.date}`;
+  document.getElementById('post-title').textContent = post.title;
+  document.getElementById('post-body').textContent = post.content;
+  window.scrollTo(0, 0);
+}
+
+function closeArticle() {
+  document.getElementById('blog-list-view').style.display = 'block';
+  document.getElementById('single-post-view').style.display = 'none';
+}
+
+function handlePublish(e) {
+  e.preventDefault();
+  const title = document.getElementById('post-title-input').value;
+  const tag = document.getElementById('post-tag-input').value;
+  const content = document.getElementById('post-content-input').value;
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  const newPost = {
+    id: Date.now(),
+    title,
+    tag,
+    date: dateStr,
+    content
+  };
+
+  const posts = getStoredPosts();
+  posts.unshift(newPost); // Add new post to top
+  localStorage.setItem('cian_blog_posts', JSON.stringify(posts));
+
+  // Reset form
+  document.getElementById('publish-form').reset();
+
+  // Re-render blog and navigate
+  renderBlogList();
+  nav('blog');
+}
+
+// Initial initialization
+renderBlogList();
 </script>
 </body>
 </html>
