@@ -3,930 +3,924 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cian Hamell-Kelleher — Pitching Dev &amp; Personal Archive</title>
-
-<!-- Retro Typography: Instrument Serif, Space Grotesk, Share Tech Mono -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<title>Cian Hamell-Kelleher</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  /* Warm 70s Nostalgic Retro Palette */
-  --bg:             #f4ebd9; /* Parchment cream */
-  --surface:        #fcf7ed; /* Light warm cream */
-  --surface-dark:   #2b231f; /* Deep retro espresso */
-  --surface-card:   #eae0cb; /* Warm muted cardboard */
-  
-  --text-main:      #26201c;
-  --text-muted:     #6b6057;
-  --text-light:     #f4ebd9;
-  
-  --border:         #d2c1a5;
-  --border-dark:    #40352f;
-  
-  /* Retro Accent Stripes */
-  --mustard:        #d9922b;
-  --burnt-orange:   #c85228;
-  --olive:          #596e3b;
-  --teal:           #2a7375;
-  --burgundy:       #8a2d2d;
-  
-  --wood-top:       #4a3324;
-  --wood-front:     #332115;
+:root{
+  --bg:        #07101c;
+  --bg2:       #0b1828;
+  --navy:      #0f2540;
+  --navy2:     #1a3a5c;
+  --accent:    #c8102e;
+  --accent2:   #e8304e;
+  --silver:    #d0dce8;
+  --steel:     #8aa4bc;
+  --white:     #f0f6ff;
+  --orange:    #f07124;
+  --dim:       rgba(208,220,232,0.55);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;cursor:none;min-height:100vh;display:flex;flex-direction:column;}
+
+/* ── BASE BG ── */
+.bg-base{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 20%, rgba(15,37,64,0.95) 0%, transparent 70%),
+    linear-gradient(180deg, #07101c 0%, #0b1828 60%, #07101c 100%);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background-color: var(--bg);
-  color: var(--text-main);
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Diagonal stripe */
+.bg-stripe{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(
+    -55deg,
+    rgba(255,255,255,0.018) 0px,
+    rgba(255,255,255,0.018) 1px,
+    transparent 1px,
+    transparent 40px
+  );
 }
 
-/* Container */
-.container {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  width: 100%;
+/* Geometry */
+.geo{position:fixed;pointer-events:none;z-index:1;}
+.g1{
+  width:480px;height:480px;
+  border:1.5px solid rgba(200,16,46,0.12);
+  border-radius:50%;
+  top:-160px;right:-120px;
+  animation:gspin 55s linear infinite;
+}
+.g1::after{
+  content:'';position:absolute;
+  width:340px;height:340px;
+  border:1px solid rgba(200,16,46,0.07);
+  border-radius:50%;
+  top:70px;left:70px;
+  animation:gspin 30s linear infinite reverse;
+}
+.g2{
+  width:260px;height:260px;
+  border:1.5px solid rgba(138,164,188,0.08);
+  bottom:80px;left:60px;
+  transform:rotate(22deg);
+  animation:gspin2 45s linear infinite;
+}
+.g3{
+  width:160px;height:160px;
+  border:1px solid rgba(200,16,46,0.1);
+  top:38vh;right:120px;
+  transform:rotate(45deg);
+  animation:gspin2 28s linear infinite reverse;
+}
+.g4{
+  position:fixed;
+  bottom:-100px;right:-100px;
+  width:500px;height:500px;
+  border:1.5px solid rgba(15,37,64,0.4);
+  border-radius:50%;
+  animation:gspin 70s linear infinite .5s;
+}
+@keyframes gspin{to{transform:rotate(360deg);}}
+@keyframes gspin2{from{transform:rotate(22deg)}to{transform:rotate(382deg);}}
+
+/* ── CURSOR ── */
+.cursor{
+  position:fixed;pointer-events:none;z-index:9999;
+  width:12px;height:12px;
+  background:var(--accent);
+  transform:translate(-50%,-50%);
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  transition:width .15s,height .15s;
+  box-shadow:0 0 10px rgba(200,16,46,0.6);
+}
+.cursor.big{width:20px;height:20px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  background:rgba(7,16,28,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(200,16,46,0.25);
+}
+nav::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,16,46,0.5),transparent);
+}
+.nav-logo{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:1rem;
+  color:var(--white);letter-spacing:.2em;text-decoration:none;
+  text-transform:uppercase;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;
+  letter-spacing:.2em;color:var(--steel);text-decoration:none;
+  text-transform:uppercase;transition:color .2s;
+  padding-bottom:.2rem;
+}
+.nav-links a:hover, .nav-links a.active{color:var(--white);border-bottom:2px solid var(--accent);}
+
+/* ── MULTI-PAGE ROUTING ── */
+main{flex:1;position:relative;z-index:2;margin-top:60px;}
+.page-section{display:none;min-height:calc(100vh - 120px);}
+.page-section.active{display:block;}
+
+/* ── HERO ── */
+#home{
+  min-height:calc(100vh - 60px);display:flex;align-items:center;
+  padding:0 3rem;position:relative;overflow:hidden;
 }
 
-/* Retro Top Rainbow Band */
-.retro-stripe {
-  height: 5px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--burgundy) 0%, var(--burnt-orange) 25%, var(--mustard) 50%, var(--olive) 75%, var(--teal) 100%);
+.hero-lines{position:absolute;bottom:0;left:0;right:0;pointer-events:none;z-index:1;}
+.hero-lines::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.4;
+}
+.hero-lines::after{
+  content:'';position:absolute;bottom:8px;left:3rem;right:3rem;height:1px;
+  background:rgba(200,16,46,0.1);
 }
 
-/* ── NAVIGATION ── */
-header {
-  border-bottom: 2px solid var(--border);
-  background: var(--bg);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.nav-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 72px;
-}
-.brand {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.6rem;
-  color: var(--text-main);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.brand-badge {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  background: var(--mustard);
-  color: var(--surface-dark);
-  padding: 0.15rem 0.4rem;
-  border-radius: 3px;
-  font-weight: 700;
+.hero-grid{
+  position:absolute;bottom:0;left:0;right:0;height:38%;
+  background:
+    repeating-linear-gradient(90deg,rgba(200,16,46,0.05) 0,rgba(200,16,46,0.05) 1px,transparent 1px,transparent 80px),
+    repeating-linear-gradient(0deg,rgba(200,16,46,0.05) 0,rgba(200,16,46,0.05) 1px,transparent 1px,transparent 44px);
+  transform:perspective(500px) rotateX(50deg);
+  transform-origin:bottom center;
 }
 
-nav ul {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
+.hero-inner{position:relative;z-index:2;max-width:720px;}
+
+.hero-eyebrow{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;letter-spacing:.35em;
+  color:var(--steel);text-transform:uppercase;
+  margin-bottom:1.4rem;
+  display:flex;align-items:center;gap:.9rem;
+  animation:fadeUp .8s ease both;
 }
-nav a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.88rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: color 0.15s;
+.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--accent);opacity:.8;}
+
+.hero-name{
+  font-family:'Orbitron',monospace;font-weight:900;
+  font-size:clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height:.98;letter-spacing:.02em;
+  color:var(--white);
+  margin-bottom:.6rem;
+  animation:fadeUp .8s ease .1s both;
+  text-transform:uppercase;
 }
-nav a:hover, nav a.active {
-  color: var(--burnt-orange);
-  font-weight: 700;
-}
-.btn-write-nav {
-  color: var(--surface-dark) !important;
-  background: var(--mustard);
-  padding: 0.35rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-dark);
-  font-weight: 700 !important;
-}
-.btn-write-nav:hover {
-  background: var(--burnt-orange);
-  color: #fff !important;
+.hero-name .l2{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.35);
 }
 
-/* ── PAGE ROUTING ── */
-.page {
-  display: none;
-  padding: 3rem 0 5rem;
-  animation: fadeIn 0.2s ease-out;
-}
-.page.active { display: block; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+.hero-role{
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  font-size:clamp(1rem,2.2vw,1.35rem);
+  color:var(--steel);letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:2.2rem;
+  animation:fadeUp .8s ease .2s both;
 }
 
-/* Typography Helpers */
-h1.page-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.6rem;
-}
-.page-subtitle {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1rem;
-  color: var(--burnt-orange);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 2.5rem;
+.hero-desc{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:400;
+  line-height:1.85;color:var(--white);
+  max-width:500px;margin-bottom:2.8rem;
+  border-left:3px solid var(--accent);
+  padding-left:1.2rem;
+  animation:fadeUp .8s ease .3s both;
 }
 
-/* ── HOME PAGE ── */
-.hero-card {
-  background: var(--surface-dark);
-  color: var(--text-light);
-  border-radius: 8px;
-  padding: 3rem 2.5rem;
-  margin-bottom: 2.5rem;
-  border: 2px solid var(--border-dark);
-  box-shadow: 6px 6px 0px var(--mustard);
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .8s ease .42s both;}
+
+.btn{
+  font-family:'Orbitron',monospace;font-size:.58rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
+  padding:.9rem 2.2rem;cursor:none;border:none;
+  transition:transform .18s,box-shadow .18s;display:inline-block;
 }
-.hero-card h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 3rem;
-  color: var(--mustard);
-  line-height: 1.1;
-  margin-bottom: 1rem;
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{
+  background:var(--accent);color:var(--white);
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  box-shadow:0 4px 20px rgba(200,16,46,.4);
 }
-.hero-card p {
-  font-size: 1.1rem;
-  color: #d1c5b8;
-  line-height: 1.7;
+.btn-primary:hover{box-shadow:0 8px 28px rgba(200,16,46,.6);}
+.btn-secondary{
+  background:transparent;color:var(--silver);
+  border:1.5px solid rgba(208,220,232,.3);
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+.btn-secondary:hover{border-color:var(--silver);color:var(--white);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.hero-stats{
+  position:absolute;right:3rem;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:.7rem;z-index:2;
+  animation:fadeUp .8s ease .55s both;
+}
+.hstat{
+  background:rgba(15,37,64,.7);
+  border-left:3px solid var(--accent);
+  border-top:1px solid rgba(200,16,46,.15);
+  border-bottom:1px solid rgba(200,16,46,.08);
+  border-right:1px solid rgba(200,16,46,.08);
+  backdrop-filter:blur(14px);
+  padding:.85rem 1.4rem;min-width:150px;
+  transition:border-left-color .25s,background .25s;
+}
+.hstat:hover{background:rgba(15,37,64,.9);border-left-color:var(--accent2);}
+.hstat-val{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:1.6rem;
+  color:var(--white);display:block;
+}
+.hstat-label{
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.18em;color:var(--steel);text-transform:uppercase;
+  margin-top:.1rem;display:block;
 }
 
-.home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.retro-box {
-  background: var(--surface);
-  border: 2px solid var(--text-main);
-  border-radius: 6px;
-  padding: 1.8rem;
-  box-shadow: 4px 4px 0px var(--text-main);
-}
-.retro-box h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.6rem;
-  margin-bottom: 0.5rem;
-}
-.retro-box p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
-.retro-btn {
-  font-family: 'Share Tech Mono', monospace;
-  color: var(--burnt-orange);
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-}
-.retro-btn:hover { text-decoration: underline; }
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(200,16,46,.25),transparent);}
 
-/* ── ABOUT PAGE ── */
-.about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; }
-.about-text p { font-size: 1.08rem; margin-bottom: 1.4rem; color: #38302b; }
-.sidebar-card {
-  background: var(--surface-card);
-  border: 2px solid var(--text-main);
-  padding: 1.5rem;
-  border-radius: 6px;
-}
-.sidebar-card h4 {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  color: var(--burnt-orange);
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-.meta-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem; }
-.meta-list li span { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-muted); display: block; text-transform: uppercase; }
+/* ── SECTIONS ── */
+section{padding:5rem 3rem;position:relative;overflow:hidden;}
 
-/* ── THROW APP PAGE ── */
-.app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-.app-card {
-  background: var(--surface);
-  border: 2px solid var(--text-main);
-  padding: 1.5rem;
-  border-radius: 6px;
+.sec-label{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:.42em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.7rem;
 }
-.app-card-num {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--burnt-orange);
-  margin-bottom: 0.4rem;
-}
-.app-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.sec-label::before{content:'';width:22px;height:2px;background:var(--accent);}
 
-/* ── MEDIA SHELF (3 BOOKS + 3 DVDS) ── */
-.shelf-wrapper {
-  background: var(--surface-dark);
-  border: 3px solid var(--text-main);
-  border-radius: 8px;
-  padding: 2rem 1.5rem 0 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 6px 6px 0px var(--burnt-orange);
+.sec-title{
+  font-family:'Orbitron',monospace;font-weight:900;
+  font-size:clamp(1.8rem,4vw,3rem);
+  color:var(--white);line-height:1.05;margin-bottom:.8rem;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.sec-title em{
+  color:transparent;font-style:normal;
+  -webkit-text-stroke:1.5px rgba(255,255,255,.4);
+}
+.sec-rule{width:50px;height:2px;background:var(--accent);margin-bottom:3rem;opacity:.7;}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.in{opacity:1;transform:none;}
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:start;max-width:1080px;}
+.about-copy p{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:400;
+  line-height:1.9;color:var(--white);margin-bottom:1.3rem;
+}
+.about-copy p strong{color:var(--white);font-weight:800;}
+
+.info-card{
+  background:rgba(15,37,64,.5);
+  border:1px solid rgba(200,16,46,.15);
+  border-top:3px solid var(--accent);
+  backdrop-filter:blur(16px);
+}
+.info-card-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:.65rem;
+  letter-spacing:.22em;color:var(--steel);text-transform:uppercase;
+  padding:1rem 1.5rem;border-bottom:1px solid rgba(200,16,46,.1);
+}
+.info-row{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.info-row:last-child{border-bottom:none;}
+.info-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;margin-top:.1rem;}
+.info-row-label{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.15em;
+  color:var(--white);text-transform:uppercase;margin-bottom:.2rem;
+}
+.info-row-val{
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;
+  color:var(--white);letter-spacing:.04em;
 }
 
-.shelf-title-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-dark);
-  padding-bottom: 0.8rem;
+/* ── CAPSTONE ── */
+.cap-intro{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:400;
+  line-height:1.9;color:var(--white);max-width:560px;margin-bottom:4rem;
 }
-.shelf-title-bar h3 {
-  font-family: 'Instrument Serif', serif;
-  color: var(--mustard);
-  font-size: 1.8rem;
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;max-width:1100px;}
+
+.cap-card{
+  background:rgba(15,37,64,.4);
+  border:1px solid rgba(200,16,46,.12);
+  border-top:2px solid rgba(200,16,46,.4);
+  padding:1.8rem;position:relative;overflow:hidden;
+  transition:transform .25s,background .25s,box-shadow .25s;cursor:none;
+  backdrop-filter:blur(10px);
 }
-.shelf-hint {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.78rem;
-  color: var(--bg);
-  background: rgba(255,255,255,0.1);
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+.cap-card:hover{
+  transform:translateY(-4px);
+  background:rgba(15,37,64,.65);
+  box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 20px rgba(200,16,46,.06);
+}
+.cap-card.span2{grid-column:span 2;}
+.cap-card.span2 .cap-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2rem;}
+
+.cap-card::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:0;height:0;border-style:solid;
+  border-width:0 0 28px 28px;
+  border-color:transparent transparent rgba(200,16,46,.15) transparent;
 }
 
-/* Bookshelf Wood Structure */
-.bookshelf {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 10px 0 10px;
-  background: #231b17;
-  border-bottom: 16px solid var(--wood-top);
-  position: relative;
-  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5);
+.cap-num{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.3em;
+  color:rgba(200,16,46,.5);margin-bottom:.55rem;
 }
-.bookshelf::after {
-  content: '';
-  position: absolute;
-  bottom: -24px;
-  left: -1.5rem;
-  right: -1.5rem;
-  height: 8px;
-  background: var(--wood-front);
+.cap-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:.9rem;
+  color:var(--white);letter-spacing:.07em;margin-bottom:.8rem;
+  line-height:1.35;text-transform:uppercase;
 }
-
-/* Spine Common Styles */
-.spine {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 4px;
-  user-select: none;
-  position: relative;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+.cap-body{
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:400;
+  line-height:1.85;color:var(--white);margin-bottom:1.3rem;
 }
-.spine:hover {
-  transform: translateY(-12px);
-  box-shadow: 4px 8px 12px rgba(0,0,0,0.6);
-}
-.spine.selected {
-  transform: translateY(-20px);
-  outline: 2px solid var(--mustard);
-  box-shadow: 0 10px 20px rgba(217, 146, 43, 0.4);
+.cap-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+.cap-tag{
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.2rem .8rem;
+  background:rgba(200,16,46,.12);color:var(--steel);
+  border:1px solid rgba(200,16,46,.25);
 }
 
-.spine-title {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 160px;
+.cap-visual{width:110px;display:flex;align-items:center;justify-content:center;}
+.cap-ring{
+  width:90px;height:90px;
+  border:2px solid rgba(200,16,46,.25);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;animation:cr 20s linear infinite;
+}
+.cap-ring::before{
+  content:'';position:absolute;width:62px;height:62px;
+  border:1px solid rgba(200,16,46,.12);
+  animation:cr 12s linear infinite reverse;
+}
+.cap-ring .ci{font-size:1.8rem;animation:cr 20s linear infinite reverse;}
+@keyframes cr{to{transform:rotate(360deg)}}
+
+/* ── BLOG ── */
+.blog-intro{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;
+  line-height:1.9;color:var(--white);max-width:560px;margin-bottom:1rem;
+}
+.blog-substack-link{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+  color:var(--white);text-decoration:none;text-transform:uppercase;
+  margin-bottom:3.5rem;transition:color .2s;
+}
+.blog-substack-link:hover{color:var(--orange);}
+.blog-substack-link::before{content:'↗';}
+.blog-status{
+  font-family:'Share Tech Mono',monospace;font-size:.8rem;letter-spacing:.2em;
+  color:var(--steel);padding:3rem 0;
+}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;max-width:1100px;}
+.blog-card{
+  background:rgba(15,37,64,.4);
+  border:1px solid rgba(200,16,46,.12);
+  border-top:2px solid rgba(200,16,46,.4);
+  padding:1.8rem;text-decoration:none;display:block;
+  transition:transform .25s,background .25s,box-shadow .25s;
+  cursor:none;backdrop-filter:blur(10px);position:relative;overflow:hidden;
+}
+.blog-card::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:0;height:0;border-style:solid;
+  border-width:0 0 24px 24px;
+  border-color:transparent transparent rgba(200,16,46,.12) transparent;
+}
+.blog-card:hover{
+  transform:translateY(-4px);background:rgba(15,37,64,.65);
+  box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 20px rgba(200,16,46,.06);
+}
+.blog-date{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.25em;
+  color:rgba(200,16,46,.6);margin-bottom:.6rem;text-transform:uppercase;
+}
+.blog-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:.88rem;
+  color:var(--white);letter-spacing:.05em;margin-bottom:.75rem;
+  line-height:1.4;text-transform:uppercase;
+}
+.blog-excerpt{
+  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:400;
+  line-height:1.8;color:var(--dim);margin-bottom:1.2rem;
+}
+.blog-read{
+  font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--steel);
+  display:flex;align-items:center;gap:.4rem;transition:color .2s;
+}
+.blog-card:hover .blog-read{color:var(--white);}
+.blog-read::after{content:'→';}
+.blog-cta{margin-top:2.5rem;}
+
+/* ── MEDIA SHELF ── */
+.shelf-intro{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;
+  line-height:1.9;color:var(--white);max-width:560px;margin-bottom:2rem;
+}
+.shelf-container{
+  display:flex;flex-direction:column;gap:3.5rem;max-width:1100px;
+}
+.shelf-row-title{
+  font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;
+  color:var(--silver);letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;
+}
+.shelf-row-title::before{content:'';width:12px;height:12px;background:var(--accent);clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);}
+.shelf-grid{
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  gap:1.5rem;background:rgba(11,24,40,0.6);padding:1.5rem;
+  border-bottom:4px solid var(--navy2);
+  box-shadow:inset 0 -10px 20px rgba(0,0,0,0.5);
+  position:relative;
+}
+.shelf-grid::after{
+  content:'';position:absolute;bottom:-8px;left:0;right:0;height:4px;
+  background:rgba(200,16,46,0.3);
+}
+.media-item{
+  background:rgba(15,37,64,0.7);
+  border:1px solid rgba(200,16,46,0.2);
+  padding:1rem;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:220px;position:relative;
+  transition:transform .25s, box-shadow .25s, border-color .25s;
+  cursor:none;
+}
+.media-item:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
+  box-shadow:0 10px 25px rgba(200,16,46,0.2);
+}
+.media-type{
+  font-family:'Share Tech Mono',monospace;font-size:.6rem;
+  color:var(--steel);letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.media-title{
+  font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;
+  color:var(--white);line-height:1.3;margin-bottom:.4rem;
+}
+.media-author{
+  font-family:'Barlow Condensed',sans-serif;font-size:.9rem;
+  color:var(--dim);font-weight:600;margin-bottom:1rem;
+}
+.media-tag{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;
+  color:var(--accent2);background:rgba(200,16,46,0.1);
+  padding:.2rem .5rem;border:1px solid rgba(200,16,46,0.2);
+  align-self:flex-start;margin-top:auto;
 }
 
-/* Book Spine Specifics */
-.spine-book {
-  width: 44px;
-  border-radius: 3px 3px 0 0;
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1080px;align-items:start;}
+.contact-copy{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;
+  line-height:1.9;color:var(--white);margin-bottom:2rem;
 }
-.spine-book .spine-type {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  opacity: 0.8;
+.clinks{display:flex;flex-direction:column;gap:.4rem;}
+.clink{
+  display:flex;align-items:center;gap:.9rem;
+  color:var(--steel);text-decoration:none;
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;
+  letter-spacing:.06em;
+  padding:.7rem 1rem;
+  border:1px solid rgba(255,255,255,.05);
+  border-left:3px solid rgba(200,16,46,.3);
+  transition:all .22s;
 }
+.clink:hover{
+  color:var(--white);
+  border-left-color:var(--accent);
+  background:rgba(200,16,46,.07);
+  padding-left:1.5rem;
+}
+.clink-ic{font-size:.95rem;color:var(--white);width:18px;text-align:center;flex-shrink:0;}
 
-/* DVD Spine Specifics */
-.spine-dvd {
-  width: 34px;
-  height: 200px !important;
-  border-radius: 2px 2px 0 0;
-  border-left: 1px solid rgba(255,255,255,0.2);
-  border-right: 1px solid rgba(0,0,0,0.4);
+.form{display:flex;flex-direction:column;gap:1rem;}
+.flabel{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.22em;
+  color:var(--steel);text-transform:uppercase;display:block;margin-bottom:.32rem;
 }
-.dvd-logo {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.55rem;
-  font-weight: 700;
-  background: rgba(0,0,0,0.4);
-  padding: 2px 4px;
-  border-radius: 2px;
-  color: #fff;
+.flabel::before{content:'/ ';}
+.finput,.fta{
+  width:100%;background:rgba(15,37,64,.4);
+  border:none;border-bottom:2px solid rgba(200,16,46,.2);
+  color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;
+  padding:.72rem .5rem;outline:none;border-radius:0;
+  transition:border-color .22s,background .22s;
 }
+.finput:focus,.fta:focus{border-color:var(--accent);background:rgba(15,37,64,.6);}
+.finput::placeholder,.fta::placeholder{color:rgba(138,164,188,.25);}
+.fta{resize:none;}
 
-/* Color Variances for Spines */
-.bg-burgundy { background: var(--burgundy); color: #fce8e8; }
-.bg-olive { background: var(--olive); color: #f0f5e8; }
-.bg-mustard { background: var(--mustard); color: #2b231f; }
-.bg-teal { background: var(--teal); color: #e8f5f5; }
-.bg-orange { background: var(--burnt-orange); color: #fcf0eb; }
-.bg-dark { background: #3b3531; color: #e8e2dc; }
+/* ── FOOTER ── */
+footer{
+  background:var(--bg);
+  padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:1px solid rgba(200,16,46,.2);
+  position:relative;z-index:2;
+}
+.foot-name{font-family:'Orbitron',monospace;font-weight:900;font-size:.85rem;letter-spacing:.2em;color:var(--silver);text-transform:uppercase;}
+.foot-mid{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.12em;color:var(--steel);text-transform:uppercase;opacity:.5;}
+.foot-r{font-family:'Share Tech Mono',monospace;font-size:.75rem;letter-spacing:.15em;color:rgba(138,164,188,.3);}
 
-/* Media Display Panel (Cover + Blurb) */
-.media-display {
-  background: var(--surface);
-  border: 2px solid var(--text-main);
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 2rem;
-  box-shadow: 4px 4px 0px var(--text-main);
-  align-items: start;
-}
-
-/* Retro Synthetic Cover Art */
-.media-cover {
-  width: 100%;
-  aspect-ratio: 2/3;
-  background: var(--surface-dark);
-  border: 2px solid var(--text-main);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1.2rem 1rem;
-  color: var(--text-light);
-  position: relative;
-  box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
-}
-.cover-badge {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  background: var(--mustard);
-  color: var(--surface-dark);
-  padding: 0.15rem 0.4rem;
-  font-weight: 700;
-  width: fit-content;
-}
-.cover-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.5rem;
-  line-height: 1.15;
-  color: var(--mustard);
-  margin: 0.5rem 0;
-}
-.cover-author {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  color: #c0b3a3;
-}
-
-.media-info h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 2.2rem;
-  line-height: 1.1;
-  margin-bottom: 0.3rem;
-}
-.media-creator {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  color: var(--burnt-orange);
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-.media-blurb {
-  font-size: 1.05rem;
-  color: var(--text-main);
-  line-height: 1.7;
-}
-
-/* ── BLOG PAGE ── */
-.blog-list { display: flex; flex-direction: column; gap: 1.5rem; }
-.blog-card {
-  background: var(--surface);
-  border: 2px solid var(--text-main);
-  border-radius: 6px;
-  padding: 1.8rem;
-  box-shadow: 4px 4px 0px var(--text-main);
-  cursor: pointer;
-  transition: transform 0.15s;
-}
-.blog-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--text-main); }
-.blog-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--burnt-orange); margin-bottom: 0.4rem; }
-.blog-card h2 { font-family: 'Instrument Serif', serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
-
-/* Article Reader View */
-#single-post-view { display: none; }
-.back-btn {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  color: var(--burnt-orange);
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 1.5rem;
-}
-
-/* ── PUBLISHING EDITOR ── */
-.editor-card {
-  background: var(--surface);
-  border: 2px solid var(--text-main);
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 4px 4px 0px var(--text-main);
-}
-.form-group { margin-bottom: 1.2rem; }
-.form-group label {
-  display: block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--burnt-orange);
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-.form-control {
-  width: 100%;
-  padding: 0.8rem;
-  border: 2px solid var(--text-main);
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 1rem;
-  background: var(--bg);
-}
-textarea.form-control { min-height: 200px; resize: vertical; }
-.btn-primary {
-  background: var(--mustard);
-  color: var(--surface-dark);
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: 700;
-  border: 2px solid var(--text-main);
-  padding: 0.8rem 1.5rem;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px var(--text-main);
-}
-.btn-primary:hover { background: var(--burnt-orange); color: #fff; }
-
-/* Footer */
-footer {
-  margin-top: auto;
-  border-top: 2px solid var(--border);
-  padding: 2rem 0;
-  background: var(--bg);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-}
-.footer-inner { display: flex; justify-content: space-between; align-items: center; }
-
-@media (max-width: 768px) {
-  .home-grid, .about-grid, .media-display { grid-template-columns: 1fr; }
-  .bookshelf { gap: 6px; overflow-x: auto; justify-content: flex-start; }
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;} .nav-links{gap:1rem;}
+  section{padding:3rem 1.5rem;} #home{padding:0 1.5rem;}
+  .geo{display:none;} .hero-stats{display:none;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .cap-card.span2{grid-column:span 1;} .cap-visual{display:none;}
+  .cap-card.span2 .cap-inner{grid-template-columns:1fr;}
+  footer{padding:2rem 1.5rem;}
 }
 </style>
 </head>
 <body>
 
-<div class="retro-stripe"></div>
+<div class="bg-base"></div>
+<div class="bg-stripe"></div>
+<div class="geo g1"></div>
+<div class="geo g2"></div>
+<div class="geo g3"></div>
+<div class="geo g4"></div>
+<div class="cursor" id="cursor"></div>
 
-<!-- NAVIGATION -->
-<header>
-  <div class="container">
-    <div class="nav-inner">
-      <a href="#" onclick="nav('home')" class="brand">
-        Cian Hamell-Kelleher <span class="brand-badge">ARCHIVE</span>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="#" class="nav-link active" data-page="home" onclick="nav('home')">Home</a></li>
-          <li><a href="#" class="nav-link" data-page="about" onclick="nav('about')">About</a></li>
-          <li><a href="#" class="nav-link" data-page="app" onclick="nav('app')">THROW App</a></li>
-          <li><a href="#" class="nav-link" data-page="shelf" onclick="nav('shelf')">Shelf</a></li>
-          <li><a href="#" class="nav-link" data-page="blog" onclick="nav('blog')">Writing</a></li>
-          <li><a href="#" class="nav-link btn-write-nav" data-page="write" onclick="nav('write')">+ Post</a></li>
-        </ul>
-      </nav>
-    </div>
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Cian Hamell-Kelleher</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">The THROW App</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#media">Media Shelf</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- ── PAGE 1: HOME ── -->
+  <div id="home" class="page-section active">
+    <section>
+      <div class="hero-grid"></div>
+      <div class="hero-lines"></div>
+
+      <div class="hero-inner">
+        <p class="hero-name">Process-Driven Player Development</p>
+        <p class="hero-role">A holistic approach to building robust pitchers</p>
+        <p class="hero-desc">Interested in throwing implements cooler. Also a fan of history, film, music, and learning. Here to share my thoughts and findings on most things and get you, yes YOU, better at throwing a 5oz white ball with red laces.</p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">View Capstone</a>
+          <a href="#contact" class="btn btn-secondary">Contact</a>
+        </div>
+      </div>
+    </section>
   </div>
-</header>
 
-<main class="container">
-
-  <!-- ── 1. HOME ── -->
-  <section id="page-home" class="page active">
-    <div class="hero-card">
-      <h1>Process-Driven Player Development</h1>
-      <p>
-        Building robust pitchers through load management, velocity auto-regulation, and evidence-based performance models. Sharing research and logs on human mechanics, pitching development, literature, and film.
-      </p>
-    </div>
-
-    <div class="home-grid">
-      <div class="retro-box">
-        <h3>Senior Capstone Project</h3>
-        <p>Discover the THROW App—a velocity-based throwing platform engineered to manage fatigue and reduce arm injury risks.</p>
-        <span class="retro-btn" onclick="nav('app')">View Capstone Details →</span>
+  <!-- ── PAGE 2: ABOUT ── -->
+  <div id="about" class="page-section">
+    <section>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="sec-label">About</p>
+          <h2 class="sec-title">About <em>Me</em></h2>
+          <div class="sec-rule"></div>
+          <p>I'm working to build a healthier and more educated general population in the baseball world to push player development forward.</p>
+          <p>My goal is to help build robust pitchers through process and data-driven development, with player health and performance at the forefront. I have experience working with pitchers at the High School and Collegiate levels.</p>
+          <p>I am currently working as an independent remote Player Performance Coach. Contact me for inquires.</p>
+        </div>
+        <div class="reveal d1">
+          <div class="info-card">
+            <p class="info-card-title">Quick Info</p>
+            <div class="info-row">
+              <span class="info-icon">🎓</span>
+              <div>
+                <p class="info-row-label">Academics</p>
+                <p class="info-row-val">B.A. Communication @ Stonehill College</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">⚾</span>
+              <div>
+                <p class="info-row-label">Focus Area</p>
+                <p class="info-row-val">Pitching Development and Human Performance</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">📍</span>
+              <div>
+                <p class="info-row-label">Location</p>
+                <p class="info-row-val">Attleboro, MA</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">📅</span>
+              <div>
+                <p class="info-row-label">Year</p>
+                <p class="info-row-val">2026</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+  </div>
 
-      <div class="retro-box">
-        <h3>Interactive Media Shelf</h3>
-        <p>Explore my personal bookshelf and DVD collection containing foundational texts on motor learning and classic films.</p>
-        <span class="retro-btn" onclick="nav('shelf')">Open Media Shelf →</span>
-      </div>
-    </div>
-  </section>
+  <!-- ── PAGE 3: THE THROW APP ── -->
+  <div id="projects" class="page-section">
+    <section>
+      <p class="sec-label reveal">Senior Capstone Project</p>
+      <h2 class="sec-title reveal">The <em>THROW App</em></h2>
+      <div class="sec-rule reveal"></div>
+      <p class="cap-intro reveal">Injury rates for baseball pitchers are at an all time high. High schoolers getting Tommy John surgery has become a regularity in the sport, so what's going to change to curb this trend? Contact me to get started on the THROW App today!</p>
 
-  <!-- ── 2. ABOUT ── -->
-  <section id="page-about" class="page">
-    <h1 class="page-title">About Me</h1>
-    <p class="page-subtitle">Player Performance Coach — Attleboro, MA</p>
-
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I am working to build a healthier and more educated baseball population to push player development forward.
-        </p>
-        <p>
-          My goal is to help build <strong>robust pitchers through process and data-driven development</strong>, prioritizing athlete health and durable high performance. I have hands-on experience working with pitchers at both the High School and Collegiate levels.
-        </p>
-        <p>
-          Currently available for remote <strong>Player Performance Coaching</strong> inquiries.
-        </p>
-      </div>
-
-      <div class="sidebar-card">
-        <h4>Reference Log</h4>
-        <ul class="meta-list">
-          <li><span>Academics</span>B.A. Communication @ Stonehill College</li>
-          <li><span>Focus</span>Pitching Dev &amp; Human Performance</li>
-          <li><span>Location</span>Attleboro, MA</li>
-          <li><span>Contact</span>chamellkelleher@gmail.com</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 3. THROW APP ── -->
-  <section id="page-app" class="page">
-    <h1 class="page-title">The THROW App</h1>
-    <p class="page-subtitle">Velocity-Based Programming for Pitcher Longevity</p>
-
-    <div class="app-grid">
-      <div class="app-card">
-        <div class="app-card-num">01 / OVERVIEW</div>
-        <h3>Auto-Regulated Volume</h3>
-        <p>Dynamically scales daily throwing intensity based on baseline velocity metrics to prevent over-use stress.</p>
-      </div>
-
-      <div class="app-card">
-        <div class="app-card-num">02 / RESEARCH</div>
-        <h3>Fatigue Mitigation</h3>
-        <p>Grounded in sports science literature to protect against arm degradation and Tommy John injury risks.</p>
-      </div>
-
-      <div class="app-card">
-        <div class="app-card-num">03 / METHODOLOGY</div>
-        <h3>9-Week Protocol</h3>
-        <p>Tested in a self-administered rebuild cycle that brought peak throwing velocity back to 91.0 MPH.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 4. MEDIA SHELF (3 BOOKS + 3 DVDS WITH SPINES) ── -->
-  <section id="page-shelf" class="page">
-    <h1 class="page-title">Media Shelf</h1>
-    <p class="page-subtitle">Select a book or DVD spine from the shelf to view its cover and notes.</p>
-
-    <!-- Bookshelf Visual Container -->
-    <div class="shelf-wrapper">
-      <div class="shelf-title-bar">
-        <h3>Analog Library</h3>
-        <span class="shelf-hint">Click any spine below</span>
-      </div>
-
-      <div class="bookshelf" id="bookshelf-container">
-        <!-- Spines dynamically generated via JavaScript -->
-      </div>
-    </div>
-
-    <!-- Active Detail Display Card -->
-    <div class="media-display" id="media-display-card">
-      <div class="media-cover" id="display-cover">
-        <span class="cover-badge" id="display-badge">BOOK</span>
-        <h5 class="cover-title" id="display-cover-title">Title</h5>
-        <span class="cover-author" id="display-cover-author">Author</span>
-      </div>
-
-      <div class="media-info">
-        <h4 id="display-title">Select an item</h4>
-        <p class="media-creator" id="display-creator">Creator</p>
-        <p class="media-blurb" id="display-blurb">Click on any book or DVD spine on the shelf above to pull it off the shelf and view details.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 5. WRITING / BLOG ── -->
-  <section id="page-blog" class="page">
-    <div id="blog-list-view">
-      <h1 class="page-title">Writing &amp; Notes</h1>
-      <p class="page-subtitle">Articles on pitching development, motor learning, and logs.</p>
-      <div id="blog-posts-container" class="blog-list"></div>
-    </div>
-
-    <div id="single-post-view">
-      <span class="back-btn" onclick="closeArticle()">← Back to all posts</span>
-      <article>
-        <p class="blog-meta" id="post-date"></p>
-        <h1 class="page-title" id="post-title"></h1>
-        <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 1.5rem; white-space: pre-wrap;" id="post-body"></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ── 6. PUBLISH NEW POST ── -->
-  <section id="page-write" class="page">
-    <h1 class="page-title">New Entry</h1>
-    <p class="page-subtitle">Publish a post directly to your site.</p>
-
-    <div class="editor-card">
-      <form id="publish-form" onsubmit="handlePublish(event)">
-        <div class="form-group">
-          <label>Post Title</label>
-          <input type="text" id="post-title-input" class="form-control" placeholder="e.g. Velocity Auto-Regulation Metrics" required />
+      <div class="cap-grid">
+        <div class="cap-card span2 reveal">
+          <div class="cap-inner">
+            <div>
+              <p class="cap-num">01 / OVERVIEW</p>
+              <h3 class="cap-title">The THROW App</h3>
+              <p class="cap-body">The THROW App is a Baseball Player Development app that uses velocity-based programming to ensure a healthy workload for pitchers</p>
+              <div class="cap-tags">
+                <span class="cap-tag">Velocity-Based Programs</span>
+                <span class="cap-tag">Individualized Player Plans</span>
+                <span class="cap-tag">Education on Player Health</span>
+              </div>
+            </div>
+            <div class="cap-visual">
+              <div class="cap-ring"><span class="ci">⚾</span></div>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Category Tag</label>
-          <input type="text" id="post-tag-input" class="form-control" placeholder="e.g. Pitching Dev" required />
+        <div class="cap-card reveal">
+          <p class="cap-num">02 / RESEARCH</p>
+          <h3 class="cap-title">Research &amp; Background</h3>
+          <p class="cap-body">The literature is out there to lay the grond work for velocity-based throwing programs leading the way in health and player development.</p>
+          <div class="cap-tags"><span class="cap-tag">Load Management</span><span class="cap-tag">Injury Prevention</span></div>
         </div>
 
-        <div class="form-group">
-          <label>Content</label>
-          <textarea id="post-content-input" class="form-control" placeholder="Write post content here..." required></textarea>
+        <div class="cap-card reveal d1">
+          <p class="cap-num">03 / METHODOLOGY</p>
+          <h3 class="cap-title">Methodology</h3>
+          <p class="cap-body">Upon developing the app, a 9-Week program was built to optimally build me back up to 91 MPH for the first time in 3 years</p>
+          <div class="cap-tags"><span class="cap-tag">Self-Testing</span><span class="cap-tag">Tag</span></div>
         </div>
 
-        <button type="submit" class="btn-primary">Publish Entry →</button>
-      </form>
-    </div>
-  </section>
+        <div class="cap-card reveal d2">
+          <p class="cap-num">04 / FINDINGS</p>
+          <h3 class="cap-title">Findings &amp; Results</h3>
+          <p class="cap-body">Velocity-based throwing programs are an accurate way to manage fatigue and track daily workload in a thrower, properly preparing them for the demands of pitching.</p>
+          <div class="cap-tags"><span class="cap-tag">THROW App</span><span class="cap-tag">Health</span></div>
+        </div>
 
+        <div class="cap-card reveal d3">
+          <p class="cap-num">05 / CONCLUSIONS</p>
+          <h3 class="cap-title">Conclusions</h3>
+          <p class="cap-body">Public education and research into accurate and accessible workload models will continue to push the needle in the direction of optimal health and performance for athletes.</p>
+          <div class="cap-tags"><span class="cap-tag">Public Education</span><span class="cap-tag">Workload Models</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── PAGE 4: BLOG ── -->
+  <div id="blog" class="page-section">
+    <section>
+      <p class="sec-label reveal">Blog</p>
+      <h2 class="sec-title reveal">Latest <em>Writing</em></h2>
+      <div class="sec-rule reveal"></div>
+      <p class="blog-intro reveal">This is where I write my thoughts on pitching development, recent findings, and other things I find interesting.</p>
+      <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="blog-substack-link reveal">Read all posts on Substack</a>
+
+      <div id="blog-grid" class="blog-grid">
+        <p class="blog-status" id="blog-status">Loading posts...</p>
+      </div>
+
+      <div class="blog-cta reveal">
+        <a href="https://substack.com/@chamellkelleher" target="_blank" rel="noopener" class="btn btn-secondary" style="text-decoration:none;">View All Posts &#8594;</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── PAGE 5: MEDIA SHELF ── -->
+  <div id="media" class="page-section">
+    <section>
+      <p class="sec-label reveal">Personal Archive</p>
+      <h2 class="sec-title reveal">Media <em>Shelf</em></h2>
+      <div class="sec-rule reveal"></div>
+      <p class="shelf-intro reveal">A curated collection of books, film, music, and historical studies that shape my thinking on performance, biomechanics, and learning.</p>
+
+      <div class="shelf-container reveal">
+        <!-- BOOKS SHELF -->
+        <div>
+          <h3 class="shelf-row-title">Books &amp; Literature</h3>
+          <div class="shelf-grid">
+            <div class="media-item">
+              <span class="media-type">Biomechanics</span>
+              <h4 class="media-title">The Physics of Baseball</h4>
+              <p class="media-author">Robert K. Adair</p>
+              <span class="media-tag">Essential</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">Performance</span>
+              <h4 class="media-title">Motor Learning and Performance</h4>
+              <p class="media-author">Richard A. Schmidt</p>
+              <span class="media-tag">Study</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">History</span>
+              <h4 class="media-title">The Glory of Their Times</h4>
+              <p class="media-author">Lawrence S. Ritter</p>
+              <span class="media-tag">Classic</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">Strategy</span>
+              <h4 class="media-title">The MVP Machine</h4>
+              <p class="media-author">Ben Lindbergh &amp; Travis Sawchik</p>
+              <span class="media-tag">Development</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILM & DOCUMENTARY SHELF -->
+        <div>
+          <h3 class="shelf-row-title">Film &amp; Cinema</h3>
+          <div class="shelf-grid">
+            <div class="media-item">
+              <span class="media-type">Documentary</span>
+              <h4 class="media-title">Fastball</h4>
+              <p class="media-author">Dir. Jonathan Hock</p>
+              <span class="media-tag">Pitching</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">Cinema</span>
+              <h4 class="media-title">Moneyball</h4>
+              <p class="media-author">Dir. Bennett Miller</p>
+              <span class="media-tag">Analytics</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">Documentary</span>
+              <h4 class="media-title">The Battered Bastards of Baseball</h4>
+              <p class="media-author">Dir. Chapman &amp; Mac Lain Way</p>
+              <span class="media-tag">Culture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MUSIC & AUDIO SHELF -->
+        <div>
+          <h3 class="shelf-row-title">Music &amp; Audio</h3>
+          <div class="shelf-grid">
+            <div class="media-item">
+              <span class="media-type">Album</span>
+              <h4 class="media-title">Sound of Silver</h4>
+              <p class="media-author">LCD Soundsystem</p>
+              <span class="media-tag">Rotation</span>
+            </div>
+            <div class="media-item">
+              <span class="media-type">Album</span>
+              <h4 class="media-title">Unknown Pleasures</h4>
+              <p class="media-author">Joy Division</p>
+              <span class="media-tag">Classic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── PAGE 6: CONTACT ── -->
+  <div id="contact" class="page-section">
+    <section>
+      <div class="contact-grid">
+        <div class="reveal">
+          <p class="sec-label">Contact</p>
+          <h2 class="sec-title">Get In <em>Touch</em></h2>
+          <div class="sec-rule"></div>
+          <p class="contact-copy">Reach out for Inquiries, or if you just want to talk. Up to you.</p>
+          <div class="clinks">
+            <a href="mailto:chamellkelleher@gmail.com" class="clink"><span class="clink-ic">✉</span>chamellkelleher@gmail.com</a>
+            <a href="https://www.instagram.com/kelleher_pitching" class="clink"><span class="clink-ic">IG</span>@kelleher_pitching</a>
+            <a href="https://x.com/cianhkelleher" class="clink"><span class="clink-ic">𝕏</span>@cianhkelleher</a>
+            <a href="https://www.linkedin.com/in/cian-hamell-kelleher-640063281/" class="clink"><span class="clink-ic">in</span>LinkedIn</a>
+          </div>
+        </div>
+        <div class="reveal d1">
+          <div class="form">
+            <div><label class="flabel">Name</label><input class="finput" type="text" placeholder="Your name"/></div>
+            <div><label class="flabel">Email</label><input class="finput" type="email" placeholder="your@email.com"/></div>
+            <div><label class="flabel">Subject</label><input class="finput" type="text" placeholder="What's this about?"/></div>
+            <div><label class="flabel">Message</label><textarea class="fta" rows="5" placeholder="Your message..."></textarea></div>
+            <button class="btn btn-primary" style="border:none;cursor:none;">Send &#8594;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
 
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div>&copy; 2026 Cian Hamell-Kelleher</div>
-      <div>
-        <a href="https://x.com/cianhkelleher" target="_blank" style="color:var(--text-main); margin-left:1rem;">X/Twitter</a>
-        <a href="https://www.instagram.com/kelleher_pitching" target="_blank" style="color:var(--text-main); margin-left:1rem;">Instagram</a>
-      </div>
-    </div>
-  </div>
+  <span class="foot-name">Cian Hamell-Kelleher</span>
+  <span class="foot-mid">Pitching Development &amp; Human Performance</span>
+  <span class="foot-r">&copy; 2026</span>
 </footer>
 
 <script>
 /* ── MULTI-PAGE ROUTER ── */
-function nav(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-
-  const target = document.getElementById('page-' + pageId);
-  if (target) {
-    target.classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  const navItem = document.querySelector(`[data-page="${pageId}"]`);
-  if (navItem) navItem.classList.add('active');
-
-  if (pageId === 'blog') closeArticle();
-}
-
-/* ── MEDIA SHELF DATA (3 BOOKS + 3 DVDS) ── */
-const SHELF_ITEMS = [
-  {
-    id: 'b1',
-    type: 'BOOK',
-    title: 'The Fellowship of the Ring',
-    creator: 'J.R.R. Tolkien',
-    height: '220px',
-    colorClass: 'bg-burgundy',
-    blurb: 'A foundational masterpiece of high fantasy literature. Exploring worldbuilding, epic narrative pacing, and deep lore creation.'
-  },
-  {
-    id: 'b2',
-    type: 'BOOK',
-    title: 'Motor Learning & Performance',
-    creator: 'Richard A. Schmidt',
-    height: '240px',
-    colorClass: 'bg-olive',
-    blurb: 'Essential reading on athletic movement mechanics, skill acquisition, constraints-led approaches, and motor control principles.'
-  },
-  {
-    id: 'b3',
-    type: 'BOOK',
-    title: 'The Design of Everyday Things',
-    creator: 'Don Norman',
-    height: '205px',
-    colorClass: 'bg-mustard',
-    blurb: 'A classic exploration of human-centered design, usability, feedback loops, and how intuitive structures shape user behavior.'
-  },
-  {
-    id: 'd1',
-    type: 'DVD',
-    title: 'Moneyball',
-    creator: 'Dir. Bennett Miller (2011)',
-    height: '200px',
-    colorClass: 'bg-teal',
-    blurb: 'The story of questioning traditional scouting wisdom in baseball, leveraging data analytics, and finding market inefficiencies.'
-  },
-  {
-    id: 'd2',
-    type: 'DVD',
-    title: 'The Empire Strikes Back',
-    creator: 'Dir. Irvin Kershner (1980)',
-    height: '200px',
-    colorClass: 'bg-dark',
-    blurb: 'Widely considered one of the greatest film sequels ever made, featuring iconic character arcs, tension, and cinematic pacing.'
-  },
-  {
-    id: 'd3',
-    type: 'DVD',
-    title: 'Back to the Future',
-    creator: 'Dir. Robert Zemeckis (1985)',
-    height: '200px',
-    colorClass: 'bg-orange',
-    blurb: 'A masterclass in screenplay structure, setup/payoff mechanics, and 1980s sci-fi nostalgia.'
-  }
-];
-
-function renderShelf() {
-  const container = document.getElementById('bookshelf-container');
-  container.innerHTML = '';
-
-  SHELF_ITEMS.forEach((item, index) => {
-    const spine = document.createElement('div');
-    const isDVD = item.type === 'DVD';
+function navigate() {
+  const hash = window.location.hash || '#home';
+  const targetSection = document.querySelector(hash);
+  
+  if (targetSection && targetSection.classList.contains('page-section')) {
+    document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+    targetSection.classList.add('active');
     
-    spine.className = `spine ${isDVD ? 'spine-dvd' : 'spine-book'} ${item.colorClass}`;
-    spine.style.height = item.height;
-    spine.id = `spine-${item.id}`;
-    spine.onclick = () => selectShelfItem(item.id);
-
-    if (isDVD) {
-      spine.innerHTML = `
-        <span class="dvd-logo">DVD</span>
-        <span class="spine-title">${item.title}</span>
-        <span class="dvd-logo" style="font-size:0.45rem;">NTSC</span>
-      `;
-    } else {
-      spine.innerHTML = `
-        <span class="spine-type">BOOK</span>
-        <span class="spine-title">${item.title}</span>
-        <span style="font-size:0.6rem;">•</span>
-      `;
-    }
-
-    container.appendChild(spine);
-  });
-
-  // Default select first book
-  selectShelfItem('b1');
-}
-
-function selectShelfItem(id) {
-  document.querySelectorAll('.spine').forEach(s => s.classList.remove('selected'));
-  
-  const selectedSpine = document.getElementById(`spine-${id}`);
-  if (selectedSpine) selectedSpine.classList.add('selected');
-
-  const item = SHELF_ITEMS.find(i => i.id === id);
-  if (!item) return;
-
-  // Update Display Card
-  document.getElementById('display-badge').textContent = item.type;
-  document.getElementById('display-cover-title').textContent = item.title;
-  document.getElementById('display-cover-author').textContent = item.creator;
-  
-  document.getElementById('display-title').textContent = item.title;
-  document.getElementById('display-creator').textContent = `${item.type} — ${item.creator}`;
-  document.getElementById('display-blurb').textContent = item.blurb;
-}
-
-/* ── BLOG LOCALSTORAGE SYSTEM ── */
-const DEFAULT_POSTS = [
-  {
-    id: 1,
-    title: "Understanding Velocity Auto-Regulation",
-    tag: "Pitching Dev",
-    date: "Sep 12, 2026",
-    content: "Managing fatigue in throwers requires monitoring baseline velocity output. Drops in speed indicate nervous system fatigue before physical soreness sets in."
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === hash);
+    });
+    
+    window.scrollTo(0, 0);
+    
+    // Trigger reveals on current active page
+    setTimeout(() => {
+      targetSection.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }, 50);
   }
-];
-
-function getStoredPosts() {
-  const data = localStorage.getItem('cian_retro_blog_posts');
-  if (!data) {
-    localStorage.setItem('cian_retro_blog_posts', JSON.stringify(DEFAULT_POSTS));
-    return DEFAULT_POSTS;
-  }
-  return JSON.parse(data);
 }
 
-function renderBlogList() {
-  const container = document.getElementById('blog-posts-container');
-  const posts = getStoredPosts();
-  container.innerHTML = '';
-  
-  posts.forEach(post => {
-    const card = document.createElement('div');
-    card.className = 'blog-card';
-    card.onclick = () => openArticle(post.id);
-    card.innerHTML = `
-      <div class="blog-meta">${post.tag} • ${post.date}</div>
-      <h2>${post.title}</h2>
-      <p style="color:var(--text-muted);">${post.content.slice(0, 120)}…</p>
-    `;
-    container.appendChild(card);
-  });
-}
+window.addEventListener('hashchange', navigate);
+window.addEventListener('DOMContentLoaded', navigate);
 
-function openArticle(id) {
-  const posts = getStoredPosts();
-  const post = posts.find(p => p.id === id);
-  if (!post) return;
+/* ── CURSOR ── */
+const cur=document.getElementById('cursor');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){cx+=(mx-cx)*.16;cy+=(my-cy)*.16;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(tick);})();
+document.querySelectorAll('a,button,.cap-card,.clink,.hstat,.blog-card,.media-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
 
-  document.getElementById('blog-list-view').style.display = 'none';
-  document.getElementById('single-post-view').style.display = 'block';
+/* ── REVEAL OBSERVER ── */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-  document.getElementById('post-date').textContent = `${post.tag} — ${post.date}`;
-  document.getElementById('post-title').textContent = post.title;
-  document.getElementById('post-body').textContent = post.content;
-  window.scrollTo(0, 0);
-}
-
-function closeArticle() {
-  document.getElementById('blog-list-view').style.display = 'block';
-  document.getElementById('single-post-view').style.display = 'none';
-}
-
-function handlePublish(e) {
-  e.preventDefault();
-  const title = document.getElementById('post-title-input').value;
-  const tag = document.getElementById('post-tag-input').value;
-  const content = document.getElementById('post-content-input').value;
-
-  const newPost = {
-    id: Date.now(),
-    title,
-    tag,
-    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    content
-  };
-
-  const posts = getStoredPosts();
-  posts.unshift(newPost);
-  localStorage.setItem('cian_retro_blog_posts', JSON.stringify(posts));
-
-  document.getElementById('publish-form').reset();
-  renderBlogList();
-  nav('blog');
-}
-
-// Init
-renderShelf();
-renderBlogList();
+/* ── RSS FEED LOADER ── */
+(async function loadBlog(){
+  const status=document.getElementById('blog-status');
+  const grid=document.getElementById('blog-grid');
+  if(!status || !grid) return;
+  const feedUrl='https://chamellkelleher.substack.com/feed';
+  const proxy=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=6`;
+  try{
+    const res=await fetch(proxy);
+    const data=await res.json();
+    if(!data.items||data.items.length===0){status.textContent='No posts yet — check back soon.';return;}
+    status.remove();
+    data.items.forEach(post=>{
+      const date=new Date(post.pubDate).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+      const tmp=document.createElement('div');
+      tmp.innerHTML=post.description||'';
+      const excerpt=(tmp.textContent||'').slice(0,140).trim()+'…';
+      const card=document.createElement('a');
+      card.className='blog-card reveal';
+      card.href=post.link;card.target='_blank';card.rel='noopener';
+      card.innerHTML=`<p class="blog-date">${date}</p><h3 class="blog-title">${post.title}</h3><p class="blog-excerpt">${excerpt}</p><span class="blog-read">Read Post</span>`;
+      grid.appendChild(card);
+      obs.observe(card);
+      card.addEventListener('mouseenter',()=>cur.classList.add('big'));
+      card.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+    });
+  }catch(e){status.textContent='Posts unavailable — visit Substack directly.';}
+})();
 </script>
 </body>
 </html>
