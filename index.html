@@ -442,10 +442,6 @@ a.media-item:hover{border-color:var(--navy);box-shadow:0 2px 0 var(--navy);}
         <div class="shelf-head"><h2>Films</h2><span class="shelf-status" id="film-status" role="status"></span></div>
         <div class="shelf-grid" id="film-grid"></div>
       </div>
-      <div class="shelf">
-        <div class="shelf-head"><h2>Music</h2></div>
-        <div class="shelf-grid" id="music-grid"></div>
-      </div>
     </section>
   </div>
  
@@ -532,7 +528,7 @@ a.media-item:hover{border-color:var(--navy);box-shadow:0 2px 0 var(--navy);}
    ══════════════════════════════════════════════════════════ */
  
 // Your Letterboxd username (the part in letterboxd.com/USERNAME/). Profile must be public.
-const LETTERBOXD_USERNAME = 'chamkell';
+const LETTERBOXD_USERNAME = 'CHAMKELL';
  
 // How many recent films to show from Letterboxd
 const FILM_COUNT = 4;
@@ -546,8 +542,8 @@ const CONTACT_EMAIL = 'chamellkelleher@gmail.com';
 const BOOKS = [
   { type:'Fantasy',  title:'Lord of the Rings: The Fellowship of the Ring',               by:'J.R.R. Tolkien',                 tag:'All-Time Classic' },
   { type:'Memoir',   title:'Kitchen Confidential: Adventures in the Culinary Underbelly', by:'Anthony Bourdain',               tag:'Unique' },
-  { type:'History',  title:'The Glory of Their Times',                                    by:'Lawrence S. Ritter',             tag:'Classic' },
-  { type:'Strategy', title:'The MVP Machine',                                             by:'Ben Lindbergh & Travis Sawchik', tag:'Development' }
+  { type:'Sci-Fi',  title:'Iron Gold',                                    by:'Pierce Brown',             tag:'New-Age Sci-Fi' },
+  { type:'Gothic Horror', title:'The Picture of Dorian Gray',                                             by:'Oscar Wilde', tag:'Classic' }
 ];
  
 // Shown if the Letterboxd feed can't be reached (or the username isn't set yet)
@@ -557,10 +553,6 @@ const FALLBACK_FILMS = [
   { type:'Documentary', title:'The Battered Bastards of Baseball', by:'Dir. Chapman & Mac Lain Way', tag:'Culture' }
 ];
  
-const MUSIC = [
-  { type:'Album', title:'Sound of Silver',   by:'LCD Soundsystem', tag:'Rotation' },
-  { type:'Album', title:'Unknown Pleasures', by:'Joy Division',    tag:'Classic' }
-];
  
 /* ══════════════════════════════════════════════════════════
    SITE CODE
@@ -619,7 +611,6 @@ function renderShelf(gridId, items) {
 }
  
 renderShelf('books-grid', BOOKS);
-renderShelf('music-grid', MUSIC);
 renderShelf('film-grid', FALLBACK_FILMS);
  
 /* ── LETTERBOXD ── */
